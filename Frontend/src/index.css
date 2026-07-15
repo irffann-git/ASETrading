@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+
+
+
+/* globals.css */
+
+:root {
+  --color-bg-start: #02050d;
+  --color-bg-mid: #030914;
+  --color-bg-end: #06111f;
+  --color-bg-glow: rgba(0, 100, 170, 0.18);
+  --color-overlay: #020b1d;
+
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b8c4d9;
+  --color-text-muted: #dce6f2;
+
+  --color-accent: #00cfff;
+  --color-accent-blue: #0d4ea7;
+  --color-accent-blue-hover: #2e7bff;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg-start);
+  color: var(--color-text-primary);
+  font-family:  "Sansation", sans-serif;
+}
+
+/* Apply to the page wrapper so every section inherits the same palette */
+.home-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 82% 48%, var(--color-bg-glow), transparent 34%),
+    linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-mid) 55%, var(--color-bg-end) 100%);
+}
+
+/* Reusable section style so every part of the home page matches */
+.section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.section-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+  opacity: 0.25;
+  pointer-events: none;
+}
