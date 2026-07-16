@@ -1,31 +1,45 @@
-// HomeNetworkLogos.jsx – Big logo on the right
-import { useEffect, useRef } from "react";
+// HomeNetworkLogos.jsx – Optimized canvas network + big logo on the right
+import React, { useEffect, useRef, useCallback } from "react";
 
-const HomeNetworkLogos = () => {
+const HomeNetworkLogos = React.memo(() => {
   const canvasRef = useRef(null);
+  const animationRef = useRef(null);
+  const resizeTimerRef = useRef(null);
 
   const logo = {
     name: "logo",
-    logo: "/ase_logo.png", // replace with your own
+    logo: "/ase_logo.png", // replace with your own path
   };
 
-  // Canvas network animation (unchanged)
+  // ─── Throttled resize handler ───
+  const handleResize = useCallback(() => {
+    if (resizeTimerRef.current) return;
+    resizeTimerRef.current = setTimeout(() => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const parent = canvas.parentElement;
+      canvas.width = parent.clientWidth;
+      canvas.height = parent.clientHeight;
+      resizeTimerRef.current = null;
+    }, 100);
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
     const parent = canvas.parentElement;
     const ctx = canvas.getContext("2d");
-    let width = (canvas.width = parent.clientWidth);
-    let height = (canvas.height = parent.clientHeight);
-    let particles = [];
-    const particleCount = 80;
-    const maxDistance = 150;
 
-    const handleResize = () => {
-      width = canvas.width = parent.clientWidth;
-      height = canvas.height = parent.clientHeight;
-    };
-    window.addEventListener("resize", handleResize);
+    let width = parent.clientWidth;
+    let height = parent.clientHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    // ─── Optimized parameters ───
+    const PARTICLE_COUNT = 60;
+    const MAX_DIST = 120;
+    let particles = [];
 
     class Particle {
       constructor() {
@@ -45,51 +59,87 @@ const HomeNetworkLogos = () => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = "#00CFFF";
-        ctx.shadowColor = "rgba(0, 207, 255, 0.4)";
-        ctx.shadowBlur = 8;
+        // No shadow per particle – huge performance gain
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < particleCount; i++) {
+    // ─── Init particles ───
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
       particles.push(new Particle());
     }
 
-    let animationId;
+    // ─── Animation loop ───
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => { p.update(); p.draw(); });
+
+      // 1. Update & draw particles
+      for (const p of particles) {
+        p.update();
+        p.draw();
+      }
+
+      // 2. Draw connections in ONE SINGLE PATH (reduces draw calls)
+      ctx.beginPath();
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < maxDistance) {
-            const opacity = 1 - dist / maxDistance;
-            ctx.beginPath();
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MAX_DIST) {
+            const opacity = 1 - dist / MAX_DIST;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(0, 207, 255, ${opacity * 0.35})`;
-            ctx.lineWidth = 1;
-            ctx.shadowColor = "rgba(0, 207, 255, 0.1)";
-            ctx.shadowBlur = 4;
-            ctx.stroke();
           }
         }
       }
-      animationId = requestAnimationFrame(animate);
+      ctx.strokeStyle = "rgba(0, 207, 255, 0.35)";
+      ctx.lineWidth = 1;
+      // No shadow on lines either
+      ctx.stroke();
+
+      animationRef.current = requestAnimationFrame(animate);
     };
 
+    // ─── Start animation ───
     animate();
 
+    // ─── Visibility API: pause when tab is hidden ───
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+          animationRef.current = null;
+        }
+      } else {
+        if (!animationRef.current) {
+          animationRef.current = requestAnimationFrame(animate);
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // ─── Resize listener ───
+    window.addEventListener("resize", handleResize);
+
+    // ─── Cleanup ───
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (animationId) cancelAnimationFrame(animationId);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
+      }
+      if (resizeTimerRef.current) {
+        clearTimeout(resizeTimerRef.current);
+        resizeTimerRef.current = null;
+      }
     };
-  }, []);
+  }, [handleResize]); // handleResize is stable thanks to useCallback
 
+  // ─── Render ───
   return (
-    <section className="relative py-8 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#020B1D] min-h-[2    00px] flex items-center">
+    <section className="relative py-8 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#020B1D] min-h-[200px] flex items-center">
       {/* Canvas background – network animation */}
       <div className="absolute inset-0 w-full h-full">
         <canvas ref={canvasRef} className="w-full h-full" />
@@ -113,6 +163,6 @@ const HomeNetworkLogos = () => {
       </div>
     </section>
   );
-};
+});
 
 export default HomeNetworkLogos;
