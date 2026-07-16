@@ -87,7 +87,6 @@ const HomeNetworkLogos = React.memo(() => {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAX_DIST) {
-            const opacity = 1 - dist / MAX_DIST;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
           }
@@ -139,7 +138,7 @@ const HomeNetworkLogos = React.memo(() => {
 
   // ─── Render ───
   return (
-    <section className="relative py-8 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#020B1D] min-h-[200px] flex items-center">
+    <section className="relative py-8 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#020B1D] min-h-[200px] flex items-center rounded-[32px] border border-[#0D4EA7]/30 shadow-[0_0_40px_rgba(13,78,167,0.15)]">
       {/* Canvas background – network animation */}
       <div className="absolute inset-0 w-full h-full">
         <canvas ref={canvasRef} className="w-full h-full" />
