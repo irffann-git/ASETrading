@@ -1,37 +1,23 @@
-import ASEHero from "./components/Hero";
-import HomeAbout from "./components/homeAbout";
-import HomePartners from "./components/homePartners";
-import HomeProjects from "./components/homeProjects";
-import HomeServices from "./components/homeServices";
-import HomeSolutions from "./components/homeSolution";
+import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
-import HomeNetworkLogos from "./components/networkBanner";
+import Footer from "./components/Footer";
 
-
-
+import Home from "./pages/Home";
+import About from "./pages/About";
 
 function App() {
   return (
+    <>
+      <Navbar />
 
-    
-    <div>
-    
-        <Navbar/>
-        <ASEHero/>
-        <HomeAbout/>
-        <HomeSolutions/>
-        <HomeServices/>
-        <HomeNetworkLogos/>
-        <HomePartners/>
-        <HomeProjects/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
 
-
-      
-        
-        
-        
-      
-    </div>
+      <Footer />
+    </>
   );
 }
 
