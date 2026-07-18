@@ -1,4 +1,4 @@
-// Footer.jsx – Clean, responsive, 5-column layout
+// Footer.jsx – Clean, responsive, 6-column layout with Map
 import React from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
@@ -46,7 +46,7 @@ const socialLinks = [
 
 // ─── Reusable column component ──────────────────────────
 const FooterColumn = ({ title, links }) => (
-  <div>
+  <div className="text-center sm:text-left">
     <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
       {title}
     </h4>
@@ -55,7 +55,7 @@ const FooterColumn = ({ title, links }) => (
         <li key={link.label}>
           <Link
             to={link.to}
-            className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors duration-200 relative group"
+            className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors duration-200 relative group inline-block"
           >
             {link.label}
             <span className="absolute left-0 bottom-0 w-0 h-px bg-[#00CFFF] transition-all duration-300 group-hover:w-full" />
@@ -68,35 +68,27 @@ const FooterColumn = ({ title, links }) => (
 
 // ─── Main Footer ─────────────────────────────────────────
 const Footer = () => {
-
   return (
     <footer className="bg-[#020B1D] border-t border-white/5">
       {/* Top gradient accent */}
       <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#00CFFF]/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 lg:py-16">
-        {/* 
-          Grid: 
-          - mobile: 1 column
-          - tablet (sm): 2 columns → brand spans both (full width), others wrap
-          - desktop (lg): 6 columns → brand spans 2, other 4 each span 1
-          → visually 5 distinct groups
-        */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-6">
+      <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12 py-12 lg:py-16">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-7 lg:gap-5">
           {/* Brand – spans 2 columns on tablet and desktop */}
-          <div className="sm:col-span-2">
+          <div className="sm:col-span-2 text-center sm:text-left">
             <Link to="/" className="inline-block">
               <img
                 src="/ase_logo.png"
                 alt="ASE – Ahmed Ali Al-Saihati"
-                className="h-30 w-auto object-contain"
+                className="h-40 w-auto object-contain"
               />
             </Link>
-            <p className="text-[#B8C4D9] text-sm leading-relaxed max-w-xs">
+            <p className="text-[#B8C4D9] text-sm leading-relaxed max-w-xs mx-auto sm:mx-0 mb-4">
               Delivering innovative IT solutions that empower businesses to
               grow, transform and succeed.
             </p>
-            <div className="flex items-center gap-3 pt-1">
+            <div className="flex items-center justify-center sm:justify-start gap-3 pt-1">
               {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
@@ -112,24 +104,24 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Four link columns – each takes 1 column on desktop */}
+          {/* Link columns */}
           <FooterColumn title="Quick Links" links={quickLinks} />
           <FooterColumn title="Solutions" links={solutionsLinks} />
           <FooterColumn title="Support" links={supportLinks} />
 
-          {/* Contact column – separate styling */}
-          <div>
+          {/* Contact column */}
+          <div className="text-center sm:text-left">
             <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
               Contact Us
             </h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3">
+              <li className="flex items-start justify-center sm:justify-start gap-3">
                 <MapPin size={17} className="text-[#00CFFF] mt-0.5 shrink-0" />
                 <span className="text-[#B8C4D9] text-sm leading-snug">
                   Dammam, Kingdom of Saudi Arabia
                 </span>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center justify-center sm:justify-start gap-3">
                 <Phone size={17} className="text-[#00CFFF] shrink-0" />
                 <a
                   href="tel:+966130000000"
@@ -138,7 +130,7 @@ const Footer = () => {
                   +966 13 xxxx xxx
                 </a>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center justify-center sm:justify-start gap-3">
                 <Mail size={17} className="text-[#00CFFF] shrink-0" />
                 <a
                   href="mailto:info@ase.com.sa"
@@ -149,12 +141,26 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+
+          {/* Map Column */}
+          <div className="text-center sm:text-left">
+            <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
+              Our Presence
+            </h4>
+            <div className="relative rounded-lg overflow-hidden border border-white/5 bg-white/[0.02] p-2 group hover:border-[#00CFFF]/20 transition-colors duration-300 max-w-xs mx-auto sm:mx-0">
+              <img
+                src="/footerMap.png"
+                alt="Global Presence Map"
+                className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Bottom bar */}
       <div className="border-t border-white/5 bg-[#010712]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-center text-[#8092AD] text-xs md:text-sm">
             © 2004 ASE – Ahmed Ali Al-Saihati Gen. Cont. Est. All Rights Reserved.
           </p>
