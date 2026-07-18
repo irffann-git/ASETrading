@@ -1,3 +1,4 @@
+import ProjectsHero from "../components/Projects/ProjectsHero";
 
 
 
@@ -5,7 +6,7 @@ function Projects() {
   return (
     <div>
 
-
+      <ProjectsHero/>
        
     </div>
   );
