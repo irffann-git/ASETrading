@@ -8,10 +8,12 @@ import About from "./pages/About";
 import Solutions from "./pages/Solutions";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
+    <ScrollToTop/>
       <Navbar />
 
       <Routes>
