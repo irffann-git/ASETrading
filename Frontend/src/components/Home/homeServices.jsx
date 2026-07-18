@@ -1,8 +1,32 @@
 // HomeServices.jsx – Small cards in one horizontal row (scrollable on mobile)
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { useEffect } from "react";   // ✨ NEW
 
 const HomeServices = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   const services = [
     {
       title: "IT Infrastructure Security",
@@ -40,17 +64,18 @@ const HomeServices = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-8">
           <div>
-            <span className="text-[#0D4EA7] text-sm font-semibold tracking-widest uppercase">
+            <span className="text-[#0D4EA7] text-sm font-semibold tracking-widest uppercase reveal reveal-fade-up">   {/* ✨ NEW */}
               Our Services
             </span>
-            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-[#1B2430] leading-tight">
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-[#1B2430] leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
               Comprehensive IT & <br />
               <span className="text-[#0D4EA7]">Infrastructure Services</span>
             </h2>
           </div>
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 mt-4 md:mt-0 text-[#0D4EA7] font-semibold hover:text-[#1565D8] transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 mt-4 md:mt-0 text-[#0D4EA7] font-semibold hover:text-[#1565D8] transition-colors duration-200 group reveal reveal-fade-up"   // ✨ NEW
+            style={{ transitionDelay: "0.2s" }}   // ✨ NEW
           >
             View All Services
             <ArrowRight
@@ -66,8 +91,9 @@ const HomeServices = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="relative group rounded-lg overflow-hidden border-3 border-[#0D4EA7] shadow-md transition-all duration-300 flex-shrink-0 w-56"
-                  >
+                className="relative group rounded-lg overflow-hidden border-3 border-[#0D4EA7] shadow-md transition-all duration-300 flex-shrink-0 w-56 reveal reveal-fade-up"   // ✨ NEW
+                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}   // ✨ NEW
+              >
                 <img
                   src={service.image}
                   alt={service.title}
@@ -85,6 +111,26 @@ const HomeServices = () => {
           </div>
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

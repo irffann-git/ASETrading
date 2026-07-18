@@ -11,6 +11,29 @@ const HomeNetworkLogos = React.memo(() => {
     logo: "/ase_logo.png", // replace with your own path
   };
 
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   // ─── Throttled resize handler ───
   const handleResize = useCallback(() => {
     if (resizeTimerRef.current) return;
@@ -59,7 +82,6 @@ const HomeNetworkLogos = React.memo(() => {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = "#00CFFF";
-        // No shadow per particle – huge performance gain
         ctx.fill();
       }
     }
@@ -73,13 +95,11 @@ const HomeNetworkLogos = React.memo(() => {
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Update & draw particles
       for (const p of particles) {
         p.update();
         p.draw();
       }
 
-      // 2. Draw connections in ONE SINGLE PATH (reduces draw calls)
       ctx.beginPath();
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -94,16 +114,13 @@ const HomeNetworkLogos = React.memo(() => {
       }
       ctx.strokeStyle = "rgba(0, 207, 255, 0.35)";
       ctx.lineWidth = 1;
-      // No shadow on lines either
       ctx.stroke();
 
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    // ─── Start animation ───
     animate();
 
-    // ─── Visibility API: pause when tab is hidden ───
     const handleVisibilityChange = () => {
       if (document.hidden) {
         if (animationRef.current) {
@@ -118,10 +135,8 @@ const HomeNetworkLogos = React.memo(() => {
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // ─── Resize listener ───
     window.addEventListener("resize", handleResize);
 
-    // ─── Cleanup ───
     return () => {
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
@@ -134,11 +149,11 @@ const HomeNetworkLogos = React.memo(() => {
         resizeTimerRef.current = null;
       }
     };
-  }, [handleResize]); // handleResize is stable thanks to useCallback
+  }, [handleResize]);
 
   // ─── Render ───
   return (
-    <section className="relative py-8 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#020B1D] min-h-[200px] flex items-center rounded-[32px] border border-[#0D4EA7]/30 shadow-[0_0_40px_rgba(13,78,167,0.15)]">
+    <section className="relative py-8 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#020B1D] min-h-[200px] flex items-center rounded-[32px] border border-[#0D4EA7]/30 shadow-[0_0_40px_rgba(13,78,167,0.15)] reveal reveal-fade-up">   {/* ✨ NEW: added reveal classes */}
       {/* Canvas background – network animation */}
       <div className="absolute inset-0 w-full h-full">
         <canvas ref={canvasRef} className="w-full h-full" />
@@ -160,6 +175,26 @@ const HomeNetworkLogos = React.memo(() => {
           </div>
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 });

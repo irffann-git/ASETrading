@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";   // ✨ NEW: added useEffect
 import { Eye, Target, Gem, Check } from "lucide-react";
 
 const ServicesVisionMission = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   const values = [
     "Integrity",
     "Excellence",
@@ -23,7 +46,7 @@ const ServicesVisionMission = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {/* Vision */}
-          <div className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)]">
+          <div className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
             <div className="w-14 h-14 rounded-xl bg-[#195CCF]/20 flex items-center justify-center mb-5 group-hover:bg-[#195CCF] transition-colors duration-300">
               <Eye className="w-7 h-7 text-[#46B8FF] group-hover:text-white transition-colors duration-300" />
             </div>
@@ -39,7 +62,7 @@ const ServicesVisionMission = () => {
           </div>
 
           {/* Mission */}
-          <div className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)]">
+          <div className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
             <div className="w-14 h-14 rounded-xl bg-[#195CCF]/20 flex items-center justify-center mb-5 group-hover:bg-[#195CCF] transition-colors duration-300">
               <Target className="w-7 h-7 text-[#46B8FF] group-hover:text-white transition-colors duration-300" />
             </div>
@@ -54,7 +77,7 @@ const ServicesVisionMission = () => {
           </div>
 
           {/* Core Values */}
-          <div className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)]">
+          <div className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] reveal reveal-fade-up" style={{ transitionDelay: "0.3s" }}>   {/* ✨ NEW */}
             <div className="w-14 h-14 rounded-xl bg-[#195CCF]/20 flex items-center justify-center mb-5 group-hover:bg-[#195CCF] transition-colors duration-300">
               <Gem className="w-7 h-7 text-[#46B8FF] group-hover:text-white transition-colors duration-300" />
             </div>
@@ -72,6 +95,26 @@ const ServicesVisionMission = () => {
           </div>
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

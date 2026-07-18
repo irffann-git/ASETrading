@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";   // ✨ NEW: added useEffect
 import { Link } from "react-router-dom";
 import { MapPin, Calendar, CheckCircle2, ArrowRight } from "lucide-react";
 
@@ -70,6 +70,29 @@ const PROJECTS_DATA = [
 const FeaturedProjects = () => {
   const [activeTab, setActiveTab] = useState("All Projects");
 
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   // Filter projects dynamically based on active tab selection
   const filteredProjects = activeTab === "All Projects"
     ? PROJECTS_DATA
@@ -98,17 +121,18 @@ const FeaturedProjects = () => {
 
         {/* Section Heading */}
         <div className="mb-8">
-          <h2 className="uppercase tracking-[0.2em] text-[#46B8FF] text-sm font-bold">
+          <h2 className="uppercase tracking-[0.2em] text-[#46B8FF] text-sm font-bold reveal reveal-fade-up">   {/* ✨ NEW */}
             Featured Projects
           </h2>
         </div>
 
         {/* Responsive Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <div 
               key={project.id} 
-              className="group flex flex-col bg-[#051129] border border-white/5 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:border-[#195CCF]/30 hover:shadow-[0_10px_30px_rgba(2,11,29,0.5)]"
+              className="group flex flex-col bg-[#051129] border border-white/5 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:border-[#195CCF]/30 hover:shadow-[0_10px_30px_rgba(2,11,29,0.5)] reveal reveal-fade-up"   // ✨ NEW
+              style={{ transitionDelay: `${0.1 + index * 0.07}s` }}   // ✨ NEW
             >
               {/* Card Image Container */}
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
@@ -168,8 +192,8 @@ const FeaturedProjects = () => {
                       Results
                     </h4>
                     <ul className="space-y-2">
-                      {project.results.map((result, index) => (
-                        <li key={index} className="flex items-start gap-2.5 text-sm text-slate-300">
+                      {project.results.map((result, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-300">
                           <CheckCircle2 size={16} className="text-[#46B8FF] shrink-0 mt-0.5" />
                           <span>{result}</span>
                         </li>
@@ -195,6 +219,26 @@ const FeaturedProjects = () => {
         </div>
 
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

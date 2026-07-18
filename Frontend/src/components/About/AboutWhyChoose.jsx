@@ -1,3 +1,4 @@
+import { useEffect } from "react";   // ✨ NEW: added useEffect
 import {
   Award,
   ShieldCheck,
@@ -47,6 +48,29 @@ const features = [
 ];
 
 const AboutWhyChoose = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   return (
     <section className="relative bg-[#020B1D] py-20 overflow-hidden">
       {/* Subtle background glow */}
@@ -55,16 +79,16 @@ const AboutWhyChoose = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold">
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
             Why Choose ASE
           </span>
-          <h2 className="mt-5 text-4xl md:text-5xl font-bold text-white leading-tight">
+          <h2 className="mt-5 text-4xl md:text-5xl font-bold text-white leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
             Delivering Technology
             <span className="text-[#46B8FF]"> Excellence </span>
             Since 2004
           </h2>
-          <div className="w-24 h-1 bg-[#46B8FF] mx-auto mt-6 rounded-full" />
-          <p className="mt-6 text-slate-300 text-lg leading-8 max-w-2xl mx-auto">
+          <div className="w-24 h-1 bg-[#46B8FF] mx-auto mt-6 rounded-full reveal" style={{ transitionDelay: "0.15s" }} />   {/* ✨ NEW */}
+          <p className="mt-6 text-slate-300 text-lg leading-8 max-w-2xl mx-auto reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
             ASE combines certified expertise, global technology partnerships
             and over two decades of experience to deliver reliable,
             scalable and future-ready IT infrastructure solutions.
@@ -78,7 +102,8 @@ const AboutWhyChoose = () => {
             return (
               <div
                 key={index}
-                className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group bg-[#081B33] rounded-2xl p-8 border border-white/10 hover:border-[#46B8FF] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg reveal reveal-fade-up"   // ✨ NEW
+                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}   // ✨ NEW
               >
                 <div className="w-14 h-14 rounded-xl bg-[#195CCF]/20 flex items-center justify-center mb-6 group-hover:bg-[#195CCF]/40 transition-colors duration-300">
                   <Icon size={28} className="text-[#46B8FF] group-hover:text-white transition-colors duration-300" />
@@ -96,6 +121,26 @@ const AboutWhyChoose = () => {
           })}
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

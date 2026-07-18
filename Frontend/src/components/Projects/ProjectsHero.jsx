@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";   // ✨ NEW: added useEffect
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 const ProjectsHero = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   return (
     <section className="relative bg-[#020B1D] min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden">
       
@@ -34,13 +57,13 @@ const ProjectsHero = () => {
           {/* Section Badge */}
           <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
             <span className="w-8 md:w-10 h-0.5 bg-[#46B8FF]" />
-            <span className="uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#46B8FF] text-xs md:text-sm font-bold">
+            <span className="uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#46B8FF] text-xs md:text-sm font-bold reveal reveal-fade-up">   {/* ✨ NEW */}
               Our Portfolio
             </span>
           </div>
 
           {/* Typography Stack */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
             Proven Digital
             <br />
             Success Stories
@@ -50,7 +73,7 @@ const ProjectsHero = () => {
             </span>
           </h1>
 
-          <p className="mt-5 md:mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl">
+          <p className="mt-5 md:mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
             Explore our collection of real-world case studies, custom deployments, 
             and transformational IT architectures. Discover how we help enterprise 
             partners solve complex challenges and scale with confidence.
@@ -60,14 +83,16 @@ const ProjectsHero = () => {
           <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#195CCF] to-[#46B8FF] text-white font-semibold px-8 py-3.5 rounded-full hover:shadow-[0_0_40px_rgba(25,92,207,0.4)] transition-all duration-300 hover:-translate-y-0.5 text-sm sm:text-base whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#195CCF] to-[#46B8FF] text-white font-semibold px-8 py-3.5 rounded-full hover:shadow-[0_0_40px_rgba(25,92,207,0.4)] transition-all duration-300 hover:-translate-y-0.5 text-sm sm:text-base whitespace-nowrap reveal reveal-fade-up"   // ✨ NEW
+              style={{ transitionDelay: "0.3s" }}   // ✨ NEW
             >
               Start Your Project
               <ArrowRight size={18} className="shrink-0 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/services"
-              className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-8 py-3.5 rounded-full hover:bg-white/10 transition-all duration-300 hover:border-[#46B8FF] text-sm sm:text-base whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-8 py-3.5 rounded-full hover:bg-white/10 transition-all duration-300 hover:border-[#46B8FF] text-sm sm:text-base whitespace-nowrap reveal reveal-fade-up"   // ✨ NEW
+              style={{ transitionDelay: "0.35s" }}   // ✨ NEW
             >
               View Our Services
               <ArrowRight size={18} className="shrink-0" />
@@ -76,6 +101,26 @@ const ProjectsHero = () => {
           
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

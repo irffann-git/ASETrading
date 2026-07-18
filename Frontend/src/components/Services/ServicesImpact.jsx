@@ -42,6 +42,7 @@ const ServicesImpact = () => {
   const sectionRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
+  // ─── Existing observer for metrics ──────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -63,6 +64,29 @@ const ServicesImpact = () => {
       }
     };
   }, [hasAnimated]);
+
+  // ─── ✨ NEW: Scroll reveal effect for header elements ────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
 
   return (
     <section
@@ -89,17 +113,17 @@ const ServicesImpact = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold">
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
             Our Impact
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
             Delivering Measurable{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
               Business Outcomes
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />
-          <p className="mt-6 text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-6 text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
             Our solutions deliver quantifiable results that drive real business value,
             from infrastructure reliability to operational efficiency.
           </p>
@@ -185,7 +209,7 @@ const ServicesImpact = () => {
 
         {/* Bottom callout */}
         <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-[#46B8FF]/30 transition-all duration-300">
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-[#46B8FF]/30 transition-all duration-300 reveal reveal-fade-up" style={{ transitionDelay: "0.3s" }}>   {/* ✨ NEW */}
             <TrendingUp className="w-4 h-4 text-[#46B8FF]" />
             <span className="text-slate-300 text-sm">
               Proven results across <span className="text-white font-semibold">50+</span> enterprise projects
@@ -194,7 +218,25 @@ const ServicesImpact = () => {
         </div>
       </div>
 
-      {/* Keyframes for any subtle pulse if needed - keeping clean */}
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

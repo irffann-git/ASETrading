@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Factory, Building2, Landmark, Heart, GraduationCap, ShieldCheck } from "lucide-react";
 
 const INDUSTRIES = [
@@ -11,6 +11,29 @@ const INDUSTRIES = [
 ];
 
 const IndustriesWeServe = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   return (
     <section className="bg-white text-slate-900 py-16 px-6 sm:px-10 md:px-16 lg:px-20 relative overflow-hidden rounded-t-3xl border-t border-slate-100">
       
@@ -21,7 +44,7 @@ const IndustriesWeServe = () => {
         
         {/* Section Label */}
         <div className="text-center mb-12">
-          <h2 className="uppercase tracking-[0.25em] text-[#195CCF] text-xs font-bold sm:text-sm">
+          <h2 className="uppercase tracking-[0.25em] text-[#195CCF] text-xs font-bold sm:text-sm reveal reveal-fade-up">
             Industries We Serve
           </h2>
           <div className="h-[2px] w-12 bg-gradient-to-r from-transparent via-[#195CCF] to-transparent mx-auto mt-3" />
@@ -67,6 +90,26 @@ const IndustriesWeServe = () => {
         </div>
 
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

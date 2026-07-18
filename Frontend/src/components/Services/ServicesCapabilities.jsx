@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";   // ✨ NEW: added useEffect
 import {
   Shield,
   Server,
@@ -12,6 +12,29 @@ import {
 } from "lucide-react";
 
 const ServicesCapabilities = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   const coreServices = [
     {
       icon: Shield,
@@ -128,7 +151,8 @@ const ServicesCapabilities = () => {
   ];
 
   return (
-<section className="relative bg-[#020B1D] rounded-t-3xl -mt-12 z-10 overflow-hidden py-16 md:py-24">      {/* Background Glows */}
+    <section className="relative bg-[#020B1D] rounded-t-3xl -mt-12 z-10 overflow-hidden py-16 md:py-24">
+      {/* Background Glows */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#195CCF] via-[#46B8FF] to-[#195CCF] opacity-20" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#195CCF]/5 rounded-full blur-[180px]" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#46B8FF]/5 rounded-full blur-[150px]" />
@@ -136,17 +160,17 @@ const ServicesCapabilities = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold">
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
             Our Technical Capabilities
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
             Complete IT Solutions &{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
               Services
             </span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />
-          <p className="mt-6 text-slate-400 text-lg leading-relaxed">
+          <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />   {/* no reveal needed */}
+          <p className="mt-6 text-slate-400 text-lg leading-relaxed reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
             ASE delivers end-to-end technology solutions that help organizations
             build secure, scalable, and future-ready infrastructure.
           </p>
@@ -159,7 +183,8 @@ const ServicesCapabilities = () => {
             return (
               <div
                 key={index}
-                className="group bg-[#081B33] rounded-2xl p-6 md:p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)]"
+                className="group bg-[#081B33] rounded-2xl p-6 md:p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] reveal reveal-fade-up"   // ✨ NEW
+                style={{ transitionDelay: `${0.1 + index * 0.04}s` }}   // ✨ NEW
               >
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-[#195CCF]/20 flex items-center justify-center shrink-0 group-hover:bg-[#195CCF] transition-colors duration-300">
@@ -188,6 +213,26 @@ const ServicesCapabilities = () => {
           })}
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

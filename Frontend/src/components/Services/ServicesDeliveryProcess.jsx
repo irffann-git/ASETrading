@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";   // ✨ NEW: added useEffect
 import {
   Search,
   PenTool,
@@ -9,6 +9,29 @@ import {
 } from "lucide-react";
 
 const ServicesDeliveryProcess = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   const steps = [
     {
       number: "01",
@@ -66,17 +89,17 @@ const ServicesDeliveryProcess = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold">
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
             Our Delivery Process
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
             From Planning to{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
               Long-Term Support
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />
-          <p className="mt-6 text-slate-400 text-lg leading-relaxed">
+          <p className="mt-6 text-slate-400 text-lg leading-relaxed reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
             We follow a structured project delivery methodology that ensures
             every solution is carefully planned, professionally implemented,
             thoroughly tested, and continuously supported for long-term
@@ -94,7 +117,8 @@ const ServicesDeliveryProcess = () => {
             return (
               <div
                 key={index}
-                className="relative flex items-start gap-4 pb-10 last:pb-0 group"
+                className="relative flex items-start gap-4 pb-10 last:pb-0 group reveal reveal-fade-up"   // ✨ NEW
+                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}   // ✨ NEW
               >
                 {/* Step Circle */}
                 <div className="relative z-10 flex flex-col items-center">
@@ -134,7 +158,7 @@ const ServicesDeliveryProcess = () => {
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={index} className="relative group">
+                <div key={index} className="relative group reveal reveal-fade-up" style={{ transitionDelay: `${0.1 + index * 0.06}s` }}>   {/* ✨ NEW */}
                   <div className="flex flex-col items-center text-center">
                     {/* Number Circle */}
                     <div className="relative z-10 mb-4">
@@ -169,6 +193,26 @@ const ServicesDeliveryProcess = () => {
           </div>
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };

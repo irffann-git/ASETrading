@@ -1,5 +1,5 @@
 // Footer.jsx – Clean, responsive, 6-column layout with Map
-import React from "react";
+import React, { useEffect } from "react";   // ✨ NEW: added useEffect
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 import {
@@ -68,8 +68,31 @@ const FooterColumn = ({ title, links }) => (
 
 // ─── Main Footer ─────────────────────────────────────────
 const Footer = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   return (
-    <footer className="bg-[#020B1D] border-t border-white/5">
+    <footer className="bg-[#020B1D] border-t border-white/5 reveal reveal-fade-up">   {/* ✨ NEW: added reveal classes */}
       {/* Top gradient accent */}
       <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#00CFFF]/30 to-transparent" />
 
@@ -159,7 +182,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/5 bg-[#010712]">
+      <div className="border-t border-white/5 bg-[#010712] reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW: added reveal with delay */}
         <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-center text-[#8092AD] text-xs md:text-sm">
             © 2004 ASE – Ahmed Ali Al-Saihati Gen. Cont. Est. All Rights Reserved.
@@ -175,6 +198,26 @@ const Footer = () => {
           </p>
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </footer>
   );
 };

@@ -8,6 +8,29 @@ const CTASection = React.memo(() => {
   const animationRef = useRef(null);
   const resizeTimerRef = useRef(null);
 
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   // ─── Throttled resize handler ───
   const handleResize = useCallback(() => {
     if (resizeTimerRef.current) return;
@@ -37,13 +60,11 @@ const CTASection = React.memo(() => {
     const MAX_DIST = 200;
     let particles = [];
 
-    // Particles are seeded toward the left and right thirds, leaving the
-    // center clearer for the headline/button (matches the reference image).
     function randomX() {
       const zone = Math.random();
-      if (zone < 0.45) return Math.random() * width * 0.32; // left band
-      if (zone < 0.9) return width * 0.68 + Math.random() * width * 0.32; // right band
-      return Math.random() * width; // sparse elsewhere
+      if (zone < 0.45) return Math.random() * width * 0.32;
+      if (zone < 0.9) return width * 0.68 + Math.random() * width * 0.32;
+      return Math.random() * width;
     }
 
     class Particle {
@@ -131,7 +152,7 @@ const CTASection = React.memo(() => {
   }, [handleResize]);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#020B1D] border-t border-white/10 py-10 md:py-12 px-6 sm:px-10 lg:px-16">
+    <section className="relative w-full overflow-hidden bg-[#020B1D] border-t border-white/10 py-10 md:py-12 px-6 sm:px-10 lg:px-16 reveal reveal-fade-up">   {/* ✨ NEW: added reveal classes */}
       {/* Canvas background – particle network */}
       <div className="absolute inset-0 w-full h-full">
         <canvas ref={canvasRef} className="w-full h-full" />
@@ -143,18 +164,19 @@ const CTASection = React.memo(() => {
       {/* Content */}
       <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 max-w-7xl mx-auto">
         <div>
-          <h2 className="text-white font-bold text-2xl md:text-3xl leading-snug">
+          <h2 className="text-white font-bold text-2xl md:text-3xl leading-snug reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
             Ready to Transform Your
             <br className="hidden md:block" /> IT Infrastructure?
           </h2>
-          <p className="text-[#B8C4D9] text-sm md:text-base mt-2">
+          <p className="text-[#B8C4D9] text-sm md:text-base mt-2 reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
             Let's build the future together.
           </p>
         </div>
 
         <Link
           to="/contact"
-          className="flex items-center gap-2 bg-[#0D4EA7] hover:bg-[#2E7BFF] text-white font-semibold text-sm md:text-base px-6 py-3 rounded-full transition-all duration-200 hover:scale-105 whitespace-nowrap shrink-0"
+          className="flex items-center gap-2 bg-[#0D4EA7] hover:bg-[#2E7BFF] text-white font-semibold text-sm md:text-base px-6 py-3 rounded-full transition-all duration-200 hover:scale-105 whitespace-nowrap shrink-0 reveal reveal-fade-up"   // ✨ NEW
+          style={{ transitionDelay: "0.3s" }}   // ✨ NEW
         >
           Contact Us Today
           <span className="flex items-center justify-center w-5 h-5 rounded-full border border-white/70">
@@ -162,6 +184,26 @@ const CTASection = React.memo(() => {
           </span>
         </Link>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 });

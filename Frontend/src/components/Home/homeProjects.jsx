@@ -1,7 +1,31 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { useEffect } from "react";   // ✨ NEW
 
 const HomeProjects = () => {
+  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -30px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+    };
+  }, []);
+  // ─── End of scroll reveal ──────────────────────────────────────
+
   const projects = [
     {
       title: "Campus Network Deployment",
@@ -43,16 +67,17 @@ const HomeProjects = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
           <div>
-            <span className="text-[#1D4ED8] text-xs font-bold tracking-widest uppercase">
+            <span className="text-[#1D4ED8] text-xs font-bold tracking-widest uppercase reveal reveal-fade-up">   {/* ✨ NEW */}
               Featured Projects
             </span>
-            <h2 className="mt-2 text-3xl md:text-[2.25rem] font-bold text-[#0A0A23] leading-tight">
+            <h2 className="mt-2 text-3xl md:text-[2.25rem] font-bold text-[#0A0A23] leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
               Delivering Impactful IT Solutions
             </h2>
           </div>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-1.5 text-[#1D4ED8] text-sm font-semibold whitespace-nowrap hover:text-[#1E40AF] transition-colors duration-200"
+            className="inline-flex items-center gap-1.5 text-[#1D4ED8] text-sm font-semibold whitespace-nowrap hover:text-[#1E40AF] transition-colors duration-200 reveal reveal-fade-up"   // ✨ NEW
+            style={{ transitionDelay: "0.2s" }}   // ✨ NEW
           >
             View All Projects
             <ArrowRight size={15} />
@@ -74,7 +99,9 @@ const HomeProjects = () => {
                 min-w-[280px] w-[85%] flex-shrink-0 snap-start
                 sm:w-auto sm:min-w-0 sm:flex-shrink
                 bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300 group
-              "
+                reveal reveal-fade-up
+              "   // ✨ NEW
+              style={{ transitionDelay: `${0.1 + index * 0.08}s` }}   // ✨ NEW
             >
               <div className="h-40 overflow-hidden">
                 <img
@@ -102,6 +129,26 @@ const HomeProjects = () => {
           ))}
         </div>
       </div>
+
+      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      <style>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                      transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-fade-up {
+          transform: translateY(40px);
+        }
+        .reveal-fade-up.revealed {
+          transform: translateY(0);
+        }
+      `}</style>
     </section>
   );
 };
