@@ -78,7 +78,7 @@ const ProjectsHero = () => {
           <div className="w-full lg:w-1/2 flex justify-center">
 
             <img
-              src="/projectHero.png"
+              src="/project-map.png"
               alt="Global Network"
               className="w-full max-w-[900px] object-contain"
             />
