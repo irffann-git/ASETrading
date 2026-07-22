@@ -1,10 +1,13 @@
 // HomeServices.jsx – Small cards in one horizontal row (scrollable on mobile)
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { useEffect } from "react";   // ✨ NEW
+import { useEffect } from "react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const HomeServices = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -25,35 +28,34 @@ const HomeServices = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   const services = [
     {
-      title: "IT Infrastructure Security",
+      titleKey: "services.security",
       image: "/it_infrastructure.jpg",
     },
     {
-      title: "Intelligent Datacenter",
+      titleKey: "services.datacenter",
       image: "/Intelligent_Datacenter.jpg",
     },
     {
-      title: "Switching & Routing",
+      titleKey: "services.switching",
       image: "/switching.jpg",
     },
     {
-      title: "Structured Cabling & LV Electrical",
+      titleKey: "services.cabling",
       image: "/LV_Electrical.jpg",
     },
     {
-      title: "Electrical Panel Board Installation",
+      titleKey: "services.panel",
       image: "/Electrical_Panel.jpg",
     },
     {
-      title: "Microsoft Core Infrastructure",
+      titleKey: "services.microsoftCore",
       image: "/Microsoft_Core.jpg",
     },
     {
-      title: "Civil Works",
+      titleKey: "services.civil",
       image: "/civil_work.jpg",
     },
   ];
@@ -64,20 +66,20 @@ const HomeServices = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-8">
           <div>
-            <span className="text-[#0D4EA7] text-sm font-semibold tracking-widest uppercase reveal reveal-fade-up">   {/* ✨ NEW */}
-              Our Services
+            <span className="text-[#0D4EA7] text-sm font-semibold tracking-widest uppercase reveal reveal-fade-up">
+              {t('services.badge')}
             </span>
-            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-[#1B2430] leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-              Comprehensive IT & <br />
-              <span className="text-[#0D4EA7]">Infrastructure Services</span>
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold text-[#1B2430] leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+              {t('services.heading')} <br />
+              <span className="text-[#0D4EA7]">{t('services.highlight')}</span>
             </h2>
           </div>
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 mt-4 md:mt-0 text-[#0D4EA7] font-semibold hover:text-[#1565D8] transition-colors duration-200 group reveal reveal-fade-up"   // ✨ NEW
-            style={{ transitionDelay: "0.2s" }}   // ✨ NEW
+            className="inline-flex items-center gap-2 mt-4 md:mt-0 text-[#0D4EA7] font-semibold hover:text-[#1565D8] transition-colors duration-200 group reveal reveal-fade-up"
+            style={{ transitionDelay: "0.2s" }}
           >
-            View All Services
+            {t('services.viewAll')}
             <ArrowRight
               size={18}
               className="group-hover:translate-x-1 transition-transform"
@@ -91,19 +93,19 @@ const HomeServices = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="relative group rounded-lg overflow-hidden border-3 border-[#0D4EA7] shadow-md transition-all duration-300 flex-shrink-0 w-56 reveal reveal-fade-up"   // ✨ NEW
-                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}   // ✨ NEW
+                className="relative group rounded-lg overflow-hidden border-3 border-[#0D4EA7] shadow-md transition-all duration-300 flex-shrink-0 w-56 reveal reveal-fade-up"
+                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}
               >
                 <img
                   src={service.image}
-                  alt={service.title}
+                  alt={t(service.titleKey)}
                   className="w-56 h-40 object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="lazy"
                 />
                 {/* Overlay – smaller padding and font */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020B1D]/80 via-[#020B1D]/40 to-transparent flex items-end p-3">
                   <h3 className="text-white font-semibold text-sm leading-tight">
-                    {service.title}
+                    {t(service.titleKey)}
                   </h3>
                 </div>
               </div>
@@ -112,7 +114,7 @@ const HomeServices = () => {
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

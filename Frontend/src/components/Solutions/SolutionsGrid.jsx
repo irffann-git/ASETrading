@@ -1,102 +1,12 @@
-import React, { useEffect } from "react";   // ✨ NEW: added useEffect
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
-
-const solutionsData = [
-  {
-    id: "01",
-    title: "Enterprise Network Infrastructure",
-    description:
-      "Design, implement and optimize secure, reliable and scalable network infrastructures that enable seamless connectivity across your organization.",
-    features: [
-      "Enterprise LAN & WAN",
-      "Core Switching",
-      "Routing",
-      "Wireless Networks",
-      "Network Optimization",
-    ],
-    link: "/solutions/enterprise-network",
-    bgImage: "/netwokingcard.png",
-  },
-  {
-    id: "02",
-    title: "Cyber Security Solutions",
-    description:
-      "Protect your digital assets with intelligent cybersecurity solutions that defend against evolving threats and ensure business continuity.",
-    features: [
-      "Firewall Security",
-      "Endpoint Protection",
-      "Threat Detection",
-      "Security Monitoring",
-      "Risk Assessment",
-    ],
-    link: "/solutions/cyber-security",
-    bgImage: "/cybersecuritycard.png",
-  },
-  {
-    id: "03",
-    title: "Intelligent Data Center Solutions",
-    description:
-      "Build resilient, high-performance and highly available data center environments that support mission-critical business operations.",
-    features: [
-      "Servers",
-      "Enterprise Storage",
-      "Virtualization",
-      "Backup",
-      "Disaster Recovery",
-    ],
-    link: "/solutions/data-center",
-    bgImage: "/intelligentdata.png",
-  },
-  {
-    id: "04",
-    title: "Cloud & Microsoft Solutions",
-    description:
-      "Modernize your workplace with Microsoft technologies and cloud platforms that improve productivity, collaboration and scalability.",
-    features: [
-      "Microsoft 365",
-      "Azure",
-      "Active Directory",
-      "Exchange",
-      "Windows Server",
-    ],
-    link: "/solutions/cloud-microsoft",
-    bgImage: "/cloudmicro.png",
-  },
-  {
-    id: "05",
-    title: "Structured Cabling Solutions",
-    description:
-      "Build a reliable communication backbone using certified structured cabling systems designed for voice, data and video applications.",
-    features: [
-      "Fiber Optic",
-      "Cat6 / Cat6A / Cat7",
-      "Network Cabinets",
-      "Cable Management",
-      "Testing & Certification",
-    ],
-    link: "/solutions/structured-cabling",
-    bgImage: "/cablesolution.png",
-  },
-  {
-    id: "06",
-    title: "Integrated Infrastructure Solutions",
-    description:
-      "Deliver complete infrastructure solutions by integrating electrical systems and civil works into a single, efficient ecosystem.",
-    features: [
-      "Electrical Infrastructure",
-      "Panel Boards (MDB/SMDB)",
-      "Power Distribution",
-      "Civil Works",
-      "Trenching & Backfilling",
-    ],
-    link: "/solutions/integrated-infrastructure",
-    bgImage: "/integrated.png",
-  },
-];
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const SolutionsGrid = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -117,7 +27,57 @@ const SolutionsGrid = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
+
+  const solutionsData = [
+    {
+      id: "01",
+      titleKey: "solutionsGrid.s1.title",
+      descKey: "solutionsGrid.s1.desc",
+      featuresKey: "solutionsGrid.s1.features",
+      link: "/solutions/enterprise-network",
+      bgImage: "/netwokingcard.png",
+    },
+    {
+      id: "02",
+      titleKey: "solutionsGrid.s2.title",
+      descKey: "solutionsGrid.s2.desc",
+      featuresKey: "solutionsGrid.s2.features",
+      link: "/solutions/cyber-security",
+      bgImage: "/cybersecuritycard.png",
+    },
+    {
+      id: "03",
+      titleKey: "solutionsGrid.s3.title",
+      descKey: "solutionsGrid.s3.desc",
+      featuresKey: "solutionsGrid.s3.features",
+      link: "/solutions/data-center",
+      bgImage: "/intelligentdata.png",
+    },
+    {
+      id: "04",
+      titleKey: "solutionsGrid.s4.title",
+      descKey: "solutionsGrid.s4.desc",
+      featuresKey: "solutionsGrid.s4.features",
+      link: "/solutions/cloud-microsoft",
+      bgImage: "/cloudmicro.png",
+    },
+    {
+      id: "05",
+      titleKey: "solutionsGrid.s5.title",
+      descKey: "solutionsGrid.s5.desc",
+      featuresKey: "solutionsGrid.s5.features",
+      link: "/solutions/structured-cabling",
+      bgImage: "/cablesolution.png",
+    },
+    {
+      id: "06",
+      titleKey: "solutionsGrid.s6.title",
+      descKey: "solutionsGrid.s6.desc",
+      featuresKey: "solutionsGrid.s6.features",
+      link: "/solutions/integrated-infrastructure",
+      bgImage: "/integrated.png",
+    },
+  ];
 
   return (
     <section className="relative bg-[#020B1D] py-16 md:py-24 overflow-hidden">
@@ -127,27 +87,27 @@ const SolutionsGrid = () => {
       <div className="relative max-w-8xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
-            Our Complete Solutions
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">
+            {t('solutionsGrid.badge')}
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            Integrated Solutions for{" "}
+          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('solutionsGrid.heading.prefix')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
-              Every Business Need
+              {t('solutionsGrid.heading.highlight')}
             </span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />   {/* no reveal needed */}
+          <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />
         </div>
 
-        {/* Solutions Grid – wider cards, better image visibility */}
+        {/* Solutions Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
           {solutionsData.map((solution, index) => (
             <div
               key={index}
-              className="group relative bg-[#081B33] rounded-2xl p-6 md:p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] overflow-hidden reveal reveal-fade-up"   // ✨ NEW
-              style={{ transitionDelay: `${0.1 + index * 0.05}s` }}   // ✨ NEW
+              className="group relative bg-[#081B33] rounded-2xl p-6 md:p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] overflow-hidden reveal reveal-fade-up"
+              style={{ transitionDelay: `${0.1 + index * 0.05}s` }}
             >
-              {/* Background Image – unique per card, now more visible */}
+              {/* Background Image */}
               <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{
@@ -155,7 +115,7 @@ const SolutionsGrid = () => {
                 }}
               />
 
-              {/* Overlay – softer, shows image better */}
+              {/* Overlay */}
               <div 
                 className="absolute inset-0"
                 style={{
@@ -172,17 +132,17 @@ const SolutionsGrid = () => {
 
                 {/* Title */}
                 <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#46B8FF] transition-colors duration-300">
-                  {solution.title}
+                  {t(solution.titleKey)}
                 </h3>
 
                 {/* Description */}
                 <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                  {solution.description}
+                  {t(solution.descKey)}
                 </p>
 
                 {/* Features List */}
                 <ul className="space-y-2 mb-6">
-                  {solution.features.map((feature, i) => (
+                  {t(solution.featuresKey).map((feature, i) => (
                     <li key={i} className="flex items-start gap-2.5 text-slate-200 text-sm">
                       <Check className="w-4 h-4 text-[#46B8FF] mt-0.5 shrink-0" />
                       <span>{feature}</span>
@@ -195,7 +155,7 @@ const SolutionsGrid = () => {
                   to={solution.link}
                   className="inline-flex items-center gap-2 text-[#46B8FF] font-semibold hover:text-white transition-colors duration-300 group/link"
                 >
-                  Learn More
+                  {t('solutionsGrid.learnMore')}
                   <ArrowRight
                     size={16}
                     className="group-hover/link:translate-x-1 transition-transform duration-300"
@@ -207,7 +167,7 @@ const SolutionsGrid = () => {
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

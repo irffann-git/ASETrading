@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";   // ✨ NEW: added useEffect
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const ProjectsHero = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -24,7 +27,6 @@ const ProjectsHero = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   return (
     <section className="relative bg-[#020B1D] min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden">
@@ -38,7 +40,7 @@ const ProjectsHero = () => {
           }}
         />
         
-        {/* Adjusted Left-to-Right Fade (Sweeps into the image sooner to close the visual gap) */}
+        {/* Adjusted Left-to-Right Fade */}
         <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#020B1D] via-[#020B1D]/60 to-transparent z-10 pointer-events-none" />
         
         {/* Clean Mobile Tint Overlay */}
@@ -51,50 +53,47 @@ const ProjectsHero = () => {
 
       {/* Content Container */}
       <div className="relative w-full max-w-8xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-16 md:py-20 lg:py-24 z-20">
-        {/* Maintained crisp boundaries for the typography column */}
         <div className="w-full lg:max-w-[50%] xl:max-w-[45%]">
           
           {/* Section Badge */}
           <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
             <span className="w-8 md:w-10 h-0.5 bg-[#46B8FF]" />
-            <span className="uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#46B8FF] text-xs md:text-sm font-bold reveal reveal-fade-up">   {/* ✨ NEW */}
-              Our Portfolio
+            <span className="uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#46B8FF] text-xs md:text-sm font-bold reveal reveal-fade-up">
+              {t('projectsHero.badge')}
             </span>
           </div>
 
           {/* Typography Stack */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            Proven Digital
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('projectsHero.heading.prefix1')}
             <br />
-            Success Stories
+            {t('projectsHero.heading.prefix2')}
             <br />
             <span className="inline-block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
-              Delivered by ASE
+              {t('projectsHero.heading.highlight')}
             </span>
           </h1>
 
-          <p className="mt-5 md:mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
-            Explore our collection of real-world case studies, custom deployments, 
-            and transformational IT architectures. Discover how we help enterprise 
-            partners solve complex challenges and scale with confidence.
+          <p className="mt-5 md:mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>
+            {t('projectsHero.sub')}
           </p>
 
           {/* Responsive Interactive Buttons */}
           <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#195CCF] to-[#46B8FF] text-white font-semibold px-8 py-3.5 rounded-full hover:shadow-[0_0_40px_rgba(25,92,207,0.4)] transition-all duration-300 hover:-translate-y-0.5 text-sm sm:text-base whitespace-nowrap reveal reveal-fade-up"   // ✨ NEW
-              style={{ transitionDelay: "0.3s" }}   // ✨ NEW
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#195CCF] to-[#46B8FF] text-white font-semibold px-8 py-3.5 rounded-full hover:shadow-[0_0_40px_rgba(25,92,207,0.4)] transition-all duration-300 hover:-translate-y-0.5 text-sm sm:text-base whitespace-nowrap reveal reveal-fade-up"
+              style={{ transitionDelay: "0.3s" }}
             >
-              Start Your Project
+              {t('projectsHero.btn1')}
               <ArrowRight size={18} className="shrink-0 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/services"
-              className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-8 py-3.5 rounded-full hover:bg-white/10 transition-all duration-300 hover:border-[#46B8FF] text-sm sm:text-base whitespace-nowrap reveal reveal-fade-up"   // ✨ NEW
-              style={{ transitionDelay: "0.35s" }}   // ✨ NEW
+              className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-8 py-3.5 rounded-full hover:bg-white/10 transition-all duration-300 hover:border-[#46B8FF] text-sm sm:text-base whitespace-nowrap reveal reveal-fade-up"
+              style={{ transitionDelay: "0.35s" }}
             >
-              View Our Services
+              {t('projectsHero.btn2')}
               <ArrowRight size={18} className="shrink-0" />
             </Link>
           </div>
@@ -102,7 +101,7 @@ const ProjectsHero = () => {
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";   // ✨ NEW: added useEffect
+import React, { useEffect } from "react";
 import {
   Building2,
   Heart,
@@ -9,9 +9,12 @@ import {
   Factory,
   ShoppingBag,
 } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const ServicesIndustries = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -32,17 +35,16 @@ const ServicesIndustries = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   const industries = [
-    { name: "Government", icon: Building2 },
-    { name: "Healthcare", icon: Heart },
-    { name: "Education", icon: GraduationCap },
-    { name: "Banking & Finance", icon: Landmark },
-    { name: "Hospitality", icon: Hotel },
-    { name: "Oil & Gas", icon: Droplets },
-    { name: "Manufacturing", icon: Factory },
-    { name: "Retail", icon: ShoppingBag },
+    { key: "servicesIndustries.gov", icon: Building2 },
+    { key: "servicesIndustries.healthcare", icon: Heart },
+    { key: "servicesIndustries.education", icon: GraduationCap },
+    { key: "servicesIndustries.banking", icon: Landmark },
+    { key: "servicesIndustries.hospitality", icon: Hotel },
+    { key: "servicesIndustries.oil", icon: Droplets },
+    { key: "servicesIndustries.manufacturing", icon: Factory },
+    { key: "servicesIndustries.retail", icon: ShoppingBag },
   ];
 
   return (
@@ -64,19 +66,18 @@ const ServicesIndustries = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#195CCF]/10 text-[#195CCF] text-xs font-semibold uppercase tracking-[0.2em] mb-4 reveal reveal-fade-up">   {/* ✨ NEW */}
-            Industries We Serve
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#195CCF]/10 text-[#195CCF] text-xs font-semibold uppercase tracking-[0.2em] mb-4 reveal reveal-fade-up">
+            {t('servicesIndustries.badge')}
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            Trusted Across{" "}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('servicesIndustries.heading.prefix')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#195CCF] to-[#46B8FF]">
-              Diverse Sectors
+              {t('servicesIndustries.heading.highlight')}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#195CCF] to-[#46B8FF] mx-auto mt-5 rounded-full" />
-          <p className="mt-6 text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
-            ASE delivers tailored IT solutions across a wide range of industries,
-            helping organizations modernize, secure, and optimize their operations.
+          <p className="mt-6 text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>
+            {t('servicesIndustries.sub')}
           </p>
         </div>
 
@@ -87,8 +88,8 @@ const ServicesIndustries = () => {
             return (
               <div
                 key={index}
-                className="group relative transition-all duration-300 reveal reveal-fade-up"   // ✨ NEW
-                style={{ transitionDelay: `${0.1 + index * 0.04}s` }}   // ✨ NEW
+                className="group relative transition-all duration-300 reveal reveal-fade-up"
+                style={{ transitionDelay: `${0.1 + index * 0.04}s` }}
               >
                 {/* Glass Card */}
                 <div className="relative backdrop-blur-sm bg-white/70 rounded-2xl p-6 border border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(25,92,207,0.12)] transition-all duration-300 hover:-translate-y-1.5 overflow-hidden group-hover:border-[#195CCF]/30">
@@ -107,7 +108,7 @@ const ServicesIndustries = () => {
 
                     {/* Name */}
                     <h3 className="text-gray-800 font-semibold text-base group-hover:text-[#195CCF] transition-colors duration-300">
-                      {industry.name}
+                      {t(industry.key)}
                     </h3>
 
                     {/* Decorative line */}
@@ -120,7 +121,7 @@ const ServicesIndustries = () => {
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

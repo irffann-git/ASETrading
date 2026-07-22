@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";   // ✨ NEW: added useEffect
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Users,
@@ -7,9 +7,12 @@ import {
   Briefcase,
   ArrowRight,
 } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const WhyChooseAse = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -30,35 +33,30 @@ const WhyChooseAse = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   const features = [
     {
       icon: Users,
-      title: "Certified Engineers",
-      description:
-        "Highly experienced and certified professionals delivering enterprise-grade technology solutions.",
+      titleKey: "whyChoose.feature1",
+      descKey: "whyChoose.feature1.desc",
       link: "/about",
     },
     {
       icon: ShieldCheck,
-      title: "International Standards",
-      description:
-        "Solutions developed using globally recognized industry best practices and quality standards.",
+      titleKey: "whyChoose.feature2",
+      descKey: "whyChoose.feature2.desc",
       link: "/about",
     },
     {
       icon: Rocket,
-      title: "Future Ready",
-      description:
-        "Scalable and innovative technologies designed to support future business growth and transformation.",
+      titleKey: "whyChoose.feature3",
+      descKey: "whyChoose.feature3.desc",
       link: "/about",
     },
     {
       icon: Briefcase,
-      title: "End-to-End Delivery",
-      description:
-        "From consultation to implementation, support and optimization – we are with you every step of the way.",
+      titleKey: "whyChoose.feature4",
+      descKey: "whyChoose.feature4.desc",
       link: "/about",
     },
   ];
@@ -71,16 +69,16 @@ const WhyChooseAse = () => {
       <div className="relative max-w-8xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
-            Why Choose ASE
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">
+            {t('whyChoose.badge')}
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            Solutions That{" "}
+          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('whyChoose.heading')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
-              Make a Difference
+              {t('whyChoose.highlight')}
             </span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />   {/* no reveal needed */}
+          <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />
         </div>
 
         {/* Features Grid - 4 cards in a line */}
@@ -90,8 +88,8 @@ const WhyChooseAse = () => {
             return (
               <div
                 key={index}
-                className="group relative bg-[#081B33] rounded-2xl p-6 md:p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] overflow-hidden reveal reveal-fade-up"   // ✨ NEW
-                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}   // ✨ NEW
+                className="group relative bg-[#081B33] rounded-2xl p-6 md:p-8 border border-white/10 hover:border-[#46B8FF]/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(25,92,207,0.1)] overflow-hidden reveal reveal-fade-up"
+                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}
               >
                 {/* Subtle background glow on hover */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[#195CCF]/5 to-transparent" />
@@ -111,13 +109,13 @@ const WhyChooseAse = () => {
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <h3 className="text-lg md:text-xl font-semibold text-white group-hover:text-[#46B8FF] transition-colors duration-300">
-                      {feature.title}
+                      {t(feature.titleKey)}
                     </h3>
                   </div>
 
                   {/* Description */}
                   <p className="text-slate-400 text-sm leading-relaxed">
-                    {feature.description}
+                    {t(feature.descKey)}
                   </p>
 
                   {/* Learn More Link */}
@@ -125,7 +123,7 @@ const WhyChooseAse = () => {
                     to={feature.link}
                     className="inline-flex items-center gap-2 text-[#46B8FF] font-semibold text-sm mt-4 hover:text-white transition-colors duration-300 group/link"
                   >
-                    Learn More
+                    {t('whyChoose.learnMore')}
                     <ArrowRight
                       size={14}
                       className="group-hover/link:translate-x-1 transition-transform duration-300"
@@ -138,7 +136,7 @@ const WhyChooseAse = () => {
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

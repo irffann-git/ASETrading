@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";   // ✨ NEW: added useEffect
+import React, { useEffect } from "react";
 import {
   Search,
   PenTool,
@@ -7,9 +7,12 @@ import {
   Rocket,
   Headphones,
 } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const ServicesDeliveryProcess = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -30,50 +33,43 @@ const ServicesDeliveryProcess = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   const steps = [
     {
       number: "01",
       icon: Search,
-      title: "Discovery & Consultation",
-      description:
-        "We begin by understanding your business objectives, technical challenges, existing infrastructure, and future growth plans to define the most effective solution.",
+      titleKey: "delivery.step1",
+      descKey: "delivery.step1.desc",
     },
     {
       number: "02",
       icon: PenTool,
-      title: "Solution Design",
-      description:
-        "Our engineers design a secure, scalable, and cost-effective solution tailored to your operational and technical requirements while following industry best practices.",
+      titleKey: "delivery.step2",
+      descKey: "delivery.step2.desc",
     },
     {
       number: "03",
       icon: Workflow,
-      title: "Implementation & Integration",
-      description:
-        "Certified specialists deploy, configure, and integrate all systems with minimal disruption, ensuring seamless compatibility with your existing infrastructure.",
+      titleKey: "delivery.step3",
+      descKey: "delivery.step3.desc",
     },
     {
       number: "04",
       icon: CheckCircle,
-      title: "Testing & Quality Assurance",
-      description:
-        "Every component undergoes comprehensive testing, performance validation, security verification, and quality checks before project handover.",
+      titleKey: "delivery.step4",
+      descKey: "delivery.step4.desc",
     },
     {
       number: "05",
       icon: Rocket,
-      title: "Deployment & Training",
-      description:
-        "The completed solution is commissioned successfully, and your team receives the necessary guidance and operational training for smooth day-to-day management.",
+      titleKey: "delivery.step5",
+      descKey: "delivery.step5.desc",
     },
     {
       number: "06",
       icon: Headphones,
-      title: "Maintenance & 24/7 Support",
-      description:
-        "Our commitment continues after deployment with preventive maintenance, technical assistance, system optimization, and rapid response support whenever required.",
+      titleKey: "delivery.step6",
+      descKey: "delivery.step6.desc",
     },
   ];
 
@@ -89,21 +85,18 @@ const ServicesDeliveryProcess = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
-            Our Delivery Process
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">
+            {t('delivery.badge')}
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            From Planning to{" "}
+          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('delivery.heading.prefix')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
-              Long-Term Support
+              {t('delivery.heading.highlight')}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />
-          <p className="mt-6 text-slate-400 text-lg leading-relaxed reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
-            We follow a structured project delivery methodology that ensures
-            every solution is carefully planned, professionally implemented,
-            thoroughly tested, and continuously supported for long-term
-            business success.
+          <p className="mt-6 text-slate-400 text-lg leading-relaxed reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>
+            {t('delivery.sub')}
           </p>
         </div>
 
@@ -117,8 +110,8 @@ const ServicesDeliveryProcess = () => {
             return (
               <div
                 key={index}
-                className="relative flex items-start gap-4 pb-10 last:pb-0 group reveal reveal-fade-up"   // ✨ NEW
-                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}   // ✨ NEW
+                className="relative flex items-start gap-4 pb-10 last:pb-0 group reveal reveal-fade-up"
+                style={{ transitionDelay: `${0.1 + index * 0.06}s` }}
               >
                 {/* Step Circle */}
                 <div className="relative z-10 flex flex-col items-center">
@@ -137,11 +130,11 @@ const ServicesDeliveryProcess = () => {
                   <div className="flex items-center gap-3 mb-1">
                     <Icon className="w-5 h-5 text-[#46B8FF] group-hover:text-white transition-colors duration-300" />
                     <h3 className="text-base font-semibold text-white group-hover:text-[#46B8FF] transition-colors duration-300">
-                      {step.title}
+                      {t(step.titleKey)}
                     </h3>
                   </div>
                   <p className="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">
-                    {step.description}
+                    {t(step.descKey)}
                   </p>
                 </div>
               </div>
@@ -158,7 +151,7 @@ const ServicesDeliveryProcess = () => {
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={index} className="relative group reveal reveal-fade-up" style={{ transitionDelay: `${0.1 + index * 0.06}s` }}>   {/* ✨ NEW */}
+                <div key={index} className="relative group reveal reveal-fade-up" style={{ transitionDelay: `${0.1 + index * 0.06}s` }}>
                   <div className="flex flex-col items-center text-center">
                     {/* Number Circle */}
                     <div className="relative z-10 mb-4">
@@ -176,14 +169,14 @@ const ServicesDeliveryProcess = () => {
 
                     {/* Title */}
                     <h3 className="text-sm font-semibold text-white group-hover:text-[#46B8FF] transition-colors duration-300 leading-tight">
-                      {step.title}
+                      {t(step.titleKey)}
                     </h3>
 
-                    {/* Description Tooltip (appears on hover) */}
+                    {/* Description Tooltip */}
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[220px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 bg-[#081B33] p-4 rounded-xl border border-white/10 shadow-xl z-20 pointer-events-none">
                       <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#081B33] border-t border-l border-white/10 rotate-45" />
                       <p className="text-slate-300 text-xs leading-relaxed">
-                        {step.description}
+                        {t(step.descKey)}
                       </p>
                     </div>
                   </div>
@@ -194,7 +187,7 @@ const ServicesDeliveryProcess = () => {
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

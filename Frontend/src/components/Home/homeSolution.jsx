@@ -8,10 +8,13 @@ import {
   Monitor,
   ArrowRight,
 } from "lucide-react";
-import { useEffect } from "react";   // ✨ NEW
+import { useEffect } from "react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const HomeSolutions = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -32,38 +35,32 @@ const HomeSolutions = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   const solutions = [
     {
       icon: Shield,
-      title: "Cyber Security",
-      description:
-        "Protect your business with advanced security solutions.",
+      titleKey: "solutions.cyber",
+      descKey: "solutions.cyber.desc",
     },
     {
       icon: Network,
-      title: "Network Solutions",
-      description:
-        "Reliable, scalable & high-performance network infrastructure.",
+      titleKey: "solutions.network",
+      descKey: "solutions.network.desc",
     },
     {
       icon: Server,
-      title: "Data Center",
-      description:
-        "Modern data center design, deployment & management.",
+      titleKey: "solutions.datacenter",
+      descKey: "solutions.datacenter.desc",
     },
     {
       icon: Cloud,
-      title: "Cloud Solutions",
-      description:
-        "Enable agility and scalability with our cloud services.",
+      titleKey: "solutions.cloud",
+      descKey: "solutions.cloud.desc",
     },
     {
       icon: Monitor,
-      title: "Microsoft Solutions",
-      description:
-        "Transform with Microsoft technologies & cloud platforms.",
+      titleKey: "solutions.microsoft",
+      descKey: "solutions.microsoft.desc",
     },
   ];
 
@@ -79,20 +76,20 @@ const HomeSolutions = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
           <div>
-            <span className="text-[#00CFFF] text-sm font-semibold tracking-widest uppercase reveal reveal-fade-up">   {/* ✨ NEW */}
-              Our Solutions
+            <span className="text-[#00CFFF] text-sm font-semibold tracking-widest uppercase reveal reveal-fade-up">
+              {t('solutions.badge')}
             </span>
-            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-white leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-              Complete IT Solutions <br />
-              <span className="text-[#0D4EA7]">for Every Need</span>
+            <h2 className="mt-2 text-3xl md:text-4xl font-bold text-white leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+              {t('solutions.heading.prefix')} <br />
+              <span className="text-[#0D4EA7]">{t('solutions.heading.highlight')}</span>
             </h2>
           </div>
           <Link
             to="/solutions"
-            className="inline-flex items-center gap-2 mt-4 md:mt-0 text-[#0D4EA7] font-semibold hover:text-[#1565D8] transition-colors duration-200 group reveal reveal-fade-up"   // ✨ NEW
-            style={{ transitionDelay: "0.2s" }}   // ✨ NEW
+            className="inline-flex items-center gap-2 mt-4 md:mt-0 text-[#0D4EA7] font-semibold hover:text-[#1565D8] transition-colors duration-200 group reveal reveal-fade-up"
+            style={{ transitionDelay: "0.2s" }}
           >
-            View All Solutions
+            {t('solutions.viewAll')}
             <ArrowRight
               size={18}
               className="group-hover:translate-x-1 transition-transform"
@@ -105,26 +102,26 @@ const HomeSolutions = () => {
           {solutions.map((sol, index) => (
             <div
               key={index}
-              className="bg-[#0B162C] border border-[rgba(255,255,255,0.10)] rounded-xl p-6 text-center hover:shadow-[0_0_30px_rgba(0,207,255,0.25)] transition-all duration-300 hover:-translate-y-1 group reveal reveal-fade-up"   // ✨ NEW
-              style={{ transitionDelay: `${0.1 + index * 0.08}s` }}   // ✨ NEW
+              className="bg-[#0B162C] border border-[rgba(255,255,255,0.10)] rounded-xl p-6 text-center hover:shadow-[0_0_30px_rgba(0,207,255,0.25)] transition-all duration-300 hover:-translate-y-1 group reveal reveal-fade-up"
+              style={{ transitionDelay: `${0.1 + index * 0.08}s` }}
             >
               <div className="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-[#0D4EA7]/20 text-[#00CFFF] mb-4 group-hover:bg-[#0D4EA7] group-hover:text-white transition-all duration-300">
                 <sol.icon size={24} />
               </div>
 
               <h3 className="text-white font-bold text-lg mb-2">
-                {sol.title}
+                {t(sol.titleKey)}
               </h3>
 
               <p className="text-[#B8C4D9] text-sm leading-relaxed">
-                {sol.description}
+                {t(sol.descKey)}
               </p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

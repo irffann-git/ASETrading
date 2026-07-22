@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";   // ✨ NEW: added useEffect
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronRight } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const SolutionsHero = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -24,7 +27,6 @@ const SolutionsHero = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   return (
     <section className="relative bg-[#020B1D] min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden">
@@ -55,51 +57,49 @@ const SolutionsHero = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-3 mb-5 md:mb-6">
             <span className="w-8 md:w-10 h-0.5 bg-[#46B8FF]" />
-            <span className="uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#46B8FF] text-xs md:text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
-              Our Solutions
+            <span className="uppercase tracking-[0.2em] md:tracking-[0.25em] text-[#46B8FF] text-xs md:text-sm font-semibold reveal reveal-fade-up">
+              {t('solutionsHero.badge')}
             </span>
           </div>
 
           {/* Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] sm:leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            End-to-End IT Solutions
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] sm:leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('solutionsHero.heading.prefix')}
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
-              Built for Your Success
+              {t('solutionsHero.heading.highlight')}
             </span>
           </h1>
 
           {/* Description */}
-          <p className="mt-4 sm:mt-5 md:mt-6 text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl lg:max-w-2xl reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
-            ASE delivers integrated and innovative technology solutions that
-            help organizations build secure, scalable and future-ready
-            infrastructure to drive digital transformation.
+          <p className="mt-4 sm:mt-5 md:mt-6 text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl lg:max-w-2xl reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>
+            {t('solutionsHero.sub')}
           </p>
 
           {/* Buttons */}
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-4">
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#195CCF] to-[#46B8FF] text-white font-semibold px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:shadow-[0_0_40px_rgba(25,92,207,0.4)] transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto text-sm sm:text-base reveal reveal-fade-up"   // ✨ NEW
-              style={{ transitionDelay: "0.3s" }}   // ✨ NEW
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#195CCF] to-[#46B8FF] text-white font-semibold px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:shadow-[0_0_40px_rgba(25,92,207,0.4)] transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto text-sm sm:text-base reveal reveal-fade-up"
+              style={{ transitionDelay: "0.3s" }}
             >
-              Request Consultation
+              {t('solutionsHero.btn1')}
               <ArrowRight size={18} className="shrink-0" />
             </Link>
 
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:bg-white/10 transition-all duration-300 hover:border-[#46B8FF] w-full sm:w-auto text-sm sm:text-base reveal reveal-fade-up"   // ✨ NEW
-              style={{ transitionDelay: "0.35s" }}   // ✨ NEW
+              className="inline-flex items-center justify-center gap-2 border border-white/20 text-white font-semibold px-6 sm:px-8 py-3 sm:py-3.5 rounded-full hover:bg-white/10 transition-all duration-300 hover:border-[#46B8FF] w-full sm:w-auto text-sm sm:text-base reveal reveal-fade-up"
+              style={{ transitionDelay: "0.35s" }}
             >
-              Talk to an Expert
+              {t('solutionsHero.btn2')}
               <ChevronRight size={18} className="shrink-0" />
             </Link>
           </div>
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

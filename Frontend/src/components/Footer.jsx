@@ -1,5 +1,5 @@
 // Footer.jsx – Clean, responsive, 6-column layout with Map
-import React, { useEffect } from "react";   // ✨ NEW: added useEffect
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
 import {
@@ -8,33 +8,34 @@ import {
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
+import { useLanguage } from "../context/LanguageContext";   // <-- ADD
 
-// ─── Link data ──────────────────────────────────────────
+// ─── Link data with translation keys ────────────────────
 const quickLinks = [
-  { label: "Home", to: "/" },
-  { label: "About Us", to: "/about" },
-  { label: "Solutions", to: "/solutions" },
-  { label: "Services", to: "/services" },
-  { label: "Projects", to: "/projects" },
-  { label: "Contact", to: "/contact" },
+  { labelKey: "nav.home", to: "/" },
+  { labelKey: "nav.about", to: "/about" },
+  { labelKey: "nav.solutions", to: "/solutions" },
+  { labelKey: "nav.services", to: "/services" },
+  { labelKey: "nav.projects", to: "/projects" },
+  { labelKey: "nav.contact", to: "/contact" },
 ];
 
 const solutionsLinks = [
-  { label: "Cyber Security", to: "/solutions/cyber-security" },
-  { label: "Network Solutions", to: "/solutions/network-solutions" },
-  { label: "Data Center", to: "/solutions/data-center" },
-  { label: "Cloud Solutions", to: "/solutions/cloud-solutions" },
-  { label: "Microsoft Solutions", to: "/solutions/microsoft-solutions" },
-  { label: "Structured Cabling", to: "/solutions/structured-cabling" },
+  { labelKey: "solutions.cyber", to: "/solutions/cyber-security" },
+  { labelKey: "solutions.network", to: "/solutions/network-solutions" },
+  { labelKey: "solutions.datacenter", to: "/solutions/data-center" },
+  { labelKey: "solutions.cloud", to: "/solutions/cloud-solutions" },
+  { labelKey: "solutions.microsoft", to: "/solutions/microsoft-solutions" },
+  { labelKey: "solutionsGrid.s5.title", to: "/solutions/structured-cabling" }, // structured cabling
 ];
 
 const supportLinks = [
-  { label: "24/7 Support", to: "/support" },
-  { label: "Maintenance", to: "/support/maintenance" },
-  { label: "Resources", to: "/resources" },
-  { label: "Case Studies", to: "/case-studies" },
-  { label: "Careers", to: "/careers" },
-  { label: "Privacy Policy", to: "/privacy-policy" },
+  { labelKey: "support.247", to: "/support" },
+  { labelKey: "support.maintenance", to: "/support/maintenance" },
+  { labelKey: "support.resources", to: "/resources" },
+  { labelKey: "support.caseStudies", to: "/case-studies" },
+  { labelKey: "support.careers", to: "/careers" },
+  { labelKey: "support.privacy", to: "/privacy-policy" },
 ];
 
 const socialLinks = [
@@ -44,20 +45,20 @@ const socialLinks = [
   { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
 ];
 
-// ─── Reusable column component ──────────────────────────
-const FooterColumn = ({ title, links }) => (
+// ─── Reusable column component (now uses t) ──────────────
+const FooterColumn = ({ titleKey, links, t }) => (
   <div className="text-center sm:text-left">
     <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
-      {title}
+      {t(titleKey)}
     </h4>
     <ul className="space-y-2.5">
       {links.map((link) => (
-        <li key={link.label}>
+        <li key={link.labelKey}>
           <Link
             to={link.to}
             className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors duration-200 relative group inline-block"
           >
-            {link.label}
+            {t(link.labelKey)}
             <span className="absolute left-0 bottom-0 w-0 h-px bg-[#00CFFF] transition-all duration-300 group-hover:w-full" />
           </Link>
         </li>
@@ -68,7 +69,9 @@ const FooterColumn = ({ title, links }) => (
 
 // ─── Main Footer ─────────────────────────────────────────
 const Footer = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -89,10 +92,9 @@ const Footer = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   return (
-    <footer className="bg-[#020B1D] border-t border-white/5 reveal reveal-fade-up">   {/* ✨ NEW: added reveal classes */}
+    <footer className="bg-[#020B1D] border-t border-white/5 reveal reveal-fade-up">
       {/* Top gradient accent */}
       <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#00CFFF]/30 to-transparent" />
 
@@ -108,8 +110,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-[#B8C4D9] text-sm leading-relaxed max-w-xs mx-auto sm:mx-0 mb-4">
-              Delivering innovative IT solutions that empower businesses to
-              grow, transform and succeed.
+              {t('footer.brandDesc')}
             </p>
             <div className="flex items-center justify-center sm:justify-start gap-3 pt-1">
               {socialLinks.map(({ icon: Icon, href, label }) => (
@@ -128,20 +129,20 @@ const Footer = () => {
           </div>
 
           {/* Link columns */}
-          <FooterColumn title="Quick Links" links={quickLinks} />
-          <FooterColumn title="Solutions" links={solutionsLinks} />
-          <FooterColumn title="Support" links={supportLinks} />
+          <FooterColumn titleKey="footer.quickLinks" links={quickLinks} t={t} />
+          <FooterColumn titleKey="footer.solutions" links={solutionsLinks} t={t} />
+          <FooterColumn titleKey="footer.support" links={supportLinks} t={t} />
 
           {/* Contact column */}
           <div className="text-center sm:text-left">
             <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
-              Contact Us
+              {t('footer.contact')}
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start justify-center sm:justify-start gap-3">
                 <MapPin size={17} className="text-[#00CFFF] mt-0.5 shrink-0" />
                 <span className="text-[#B8C4D9] text-sm leading-snug">
-                  Dammam, Kingdom of Saudi Arabia
+                  {t('footer.address')}
                 </span>
               </li>
               <li className="flex items-center justify-center sm:justify-start gap-3">
@@ -150,7 +151,7 @@ const Footer = () => {
                   href="tel:+966130000000"
                   className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors"
                 >
-                  +966 13 xxxx xxx
+                  {t('footer.phone')}
                 </a>
               </li>
               <li className="flex items-center justify-center sm:justify-start gap-3">
@@ -159,7 +160,7 @@ const Footer = () => {
                   href="mailto:info@ase.com.sa"
                   className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors"
                 >
-                  info@ase.com.sa
+                  {t('footer.email')}
                 </a>
               </li>
             </ul>
@@ -168,7 +169,7 @@ const Footer = () => {
           {/* Map Column */}
           <div className="text-center sm:text-left">
             <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
-              Our Presence
+              {t('footer.presence')}
             </h4>
             <div className="relative rounded-lg overflow-hidden border border-white/5 bg-white/[0.02] p-2 group hover:border-[#00CFFF]/20 transition-colors duration-300 max-w-xs mx-auto sm:mx-0">
               <img
@@ -182,24 +183,24 @@ const Footer = () => {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/5 bg-[#010712] reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW: added reveal with delay */}
+      <div className="border-t border-white/5 bg-[#010712] reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>
         <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-center text-[#8092AD] text-xs md:text-sm">
-            © 2004 ASE – Ahmed Ali Al-Saihati Gen. Cont. Est. All Rights Reserved.
+            {t('footer.copyright')}
           </p>
           <p className="text-center text-[#8092AD] text-xs md:text-sm">
             <Link to="/privacy-policy" className="hover:text-[#00CFFF] transition-colors">
-              Privacy Policy
+              {t('footer.privacy')}
             </Link>
             <span className="mx-2">·</span>
             <Link to="/terms" className="hover:text-[#00CFFF] transition-colors">
-              Terms of Service
+              {t('footer.terms')}
             </Link>
           </p>
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

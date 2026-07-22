@@ -1,17 +1,20 @@
-// navbar.jsx
+// navbar.jsx – with translation and language toggle (no layout shift)
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
+import { Globe } from 'lucide-react';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t, toggleLanguage, lang } = useLanguage();
 
   // Toggle a solid background once the user scrolls past a small threshold
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    handleScroll(); // set correct state on mount (e.g. page loaded mid-scroll)
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -33,15 +36,16 @@ const Navbar = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Navigation links – corrected to match your image (Solutions)
+  // Navigation links – now using translation keys
   const navLinks = [
-    { name: 'Home', to: '/' },
-    { name: 'About Us', to: '/about' },
-    { name: 'Solutions', to: '/solutions' },      // was 'Solution'
-    { name: 'Services', to: '/services' },
-    { name: 'Projects', to: '/projects' },
-    { name: 'Partners', to: '/partners' },
-    { name: 'Contact', to: '/contact' },
+    { name: t('nav.home'), to: '/' },
+    { name: t('nav.about'), to: '/about' },
+    { name: t('nav.solutions'), to: '/solutions' },
+    { name: t('nav.services'), to: '/services' },
+    { name: t('nav.projects'), to: '/projects' },
+    { name: t('nav.partners'), to: '/partners' },
+    { name: t('nav.clients'), to: '/clients' },
+    { name: t('nav.contact'), to: '/contact' },
   ];
 
   return (
@@ -59,14 +63,14 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
               <img
-                src="/ase_logo.png"          // place this image in your public folder
+                src="/ase_logo.png"
                 alt="ASE Logo"
                 className="h-10 sm:h-14 md:h-20 lg:h-40 w-auto object-contain"
               />
             </Link>
           </div>
 
-          {/* Desktop Navigation – switches on at lg so 7 links + button never overflow/wrap on tablets */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-5 xl:space-x-8">
             {navLinks.map((link) => (
               <Link
@@ -77,13 +81,26 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            {/* Get in Touch Button */}
+
+            {/* "Get in Touch" button */}
             <Link
               to="/contact"
               className="bg-[#0D4EA7] hover:bg-[#2E7BFF] text-white font-semibold text-sm xl:text-base px-4 xl:px-5 py-2 rounded-full transition-all duration-200 hover:scale-105 whitespace-nowrap"
             >
-              Get in Touch
+              {t('nav.contactBtn')}
             </Link>
+
+            {/* Compact Language Toggle – sits right next to the CTA, doesn't shift anything */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1 text-sm font-medium text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-full px-2.5 py-1.5 transition-colors duration-200"
+              aria-label="Toggle language"
+            >
+              <Globe size={14} />
+              <span className="text-xs font-bold tracking-wider">
+                {lang.toUpperCase()}
+              </span>
+            </button>
           </div>
 
           {/* Mobile / tablet menu button – visible below lg */}
@@ -118,7 +135,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile / tablet menu – full-screen overlay, fades & slides in smoothly */}
+      {/* Mobile / tablet menu – full-screen overlay */}
       <div
         id="mobile-menu"
         className={`lg:hidden fixed inset-0 top-0 h-[100dvh] w-full bg-[#020B1D]/98 backdrop-blur-md z-40 overflow-y-auto transition-opacity duration-500 ease-in-out ${
@@ -146,17 +163,33 @@ const Navbar = () => {
             ))}
           </div>
 
-          <Link
-            to="/contact"
+          {/* Mobile language toggle – also compact */}
+          <button
+            onClick={toggleLanguage}
             style={{
               transitionDelay: mobileMenuOpen ? `${navLinks.length * 60 + 150}ms` : '0ms',
             }}
-            className={`bg-[#0D4EA7] hover:bg-[#2E7BFF] text-white font-semibold text-sm sm:text-base px-8 py-3 rounded-full text-center transition-all duration-300 ease-out hover:scale-105 mt-6 ${
+            className={`flex items-center gap-2 mt-4 px-5 py-2.5 rounded-full border border-white/20 text-white hover:bg-white/10 transition-all duration-300 ${
+              mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+            }`}
+          >
+            <Globe size={16} />
+            <span className="text-sm font-medium tracking-wider">
+              {lang.toUpperCase()}
+            </span>
+          </button>
+
+          <Link
+            to="/contact"
+            style={{
+              transitionDelay: mobileMenuOpen ? `${navLinks.length * 60 + 200}ms` : '0ms',
+            }}
+            className={`bg-[#0D4EA7] hover:bg-[#2E7BFF] text-white font-semibold text-sm sm:text-base px-8 py-3 rounded-full text-center transition-all duration-300 ease-out hover:scale-105 mt-4 ${
               mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
             }`}
             onClick={() => setMobileMenuOpen(false)}
           >
-            Get in Touch
+            {t('nav.contactBtn')}
           </Link>
         </div>
       </div>

@@ -9,6 +9,9 @@ import Solutions from "./pages/Solutions";
 import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import ScrollToTop from "./components/ScrollToTop";
+import Partners from "./pages/Partners";
+import Clients from "./pages/Clients";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -22,6 +25,12 @@ function App() {
         <Route path="/solutions" element={<Solutions/>} /> 
         <Route path="/services" element={<Services/>}/> 
         <Route path="/projects" element={<Projects/>}/>
+        <Route path="/partners" element={<Partners/>}/>
+        <Route path="/clients" element={<Clients/>}/>
+        <Route path="/contact" element={<Contact/>}/>
+
+
+
 
 
       </Routes>

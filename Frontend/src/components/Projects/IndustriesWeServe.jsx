@@ -1,17 +1,11 @@
 import React, { useEffect } from "react";
 import { Factory, Building2, Landmark, Heart, GraduationCap, ShieldCheck } from "lucide-react";
-
-const INDUSTRIES = [
-  { id: 1, name: "Industrial", icon: Factory },
-  { id: 2, name: "Commercial", icon: Building2 },
-  { id: 3, name: "Banking & Finance", icon: Landmark },
-  { id: 4, name: "Healthcare", icon: Heart },
-  { id: 5, name: "Education", icon: GraduationCap },
-  { id: 6, name: "Government", icon: ShieldCheck },
-];
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const IndustriesWeServe = () => {
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  const { t } = useLanguage();   // <-- ADD
+
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -32,7 +26,15 @@ const IndustriesWeServe = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
+
+  const INDUSTRIES = [
+    { id: 1, key: "industries.industrial", icon: Factory },
+    { id: 2, key: "industries.commercial", icon: Building2 },
+    { id: 3, key: "industries.banking", icon: Landmark },
+    { id: 4, key: "industries.healthcare", icon: Heart },
+    { id: 5, key: "industries.education", icon: GraduationCap },
+    { id: 6, key: "industries.government", icon: ShieldCheck },
+  ];
 
   return (
     <section className="bg-white text-slate-900 py-16 px-6 sm:px-10 md:px-16 lg:px-20 relative overflow-hidden rounded-t-3xl border-t border-slate-100">
@@ -45,7 +47,7 @@ const IndustriesWeServe = () => {
         {/* Section Label */}
         <div className="text-center mb-12">
           <h2 className="uppercase tracking-[0.25em] text-[#195CCF] text-xs font-bold sm:text-sm reveal reveal-fade-up">
-            Industries We Serve
+            {t('industries.badge')}
           </h2>
           <div className="h-[2px] w-12 bg-gradient-to-r from-transparent via-[#195CCF] to-transparent mx-auto mt-3" />
         </div>
@@ -79,7 +81,7 @@ const IndustriesWeServe = () => {
 
                 {/* Typography Label */}
                 <span className="text-xs sm:text-sm font-bold tracking-wide text-slate-600 group-hover:text-slate-900 transition-colors duration-300 whitespace-nowrap text-center sm:text-left select-none">
-                  {industry.name}
+                  {t(industry.key)}
                 </span>
 
                 {/* Elegant active accent bar at the bottom */}
@@ -91,7 +93,7 @@ const IndustriesWeServe = () => {
 
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

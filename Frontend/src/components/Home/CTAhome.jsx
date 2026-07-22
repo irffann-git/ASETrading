@@ -2,13 +2,16 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const CTASection = React.memo(() => {
+  const { t } = useLanguage();   // <-- ADD
+
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const resizeTimerRef = useRef(null);
 
-  // ─── ✨ NEW: Scroll reveal effect ────────────────────────────────
+  // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -29,7 +32,6 @@ const CTASection = React.memo(() => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   // ─── Throttled resize handler ───
   const handleResize = useCallback(() => {
@@ -152,7 +154,7 @@ const CTASection = React.memo(() => {
   }, [handleResize]);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#020B1D] border-t border-white/10 py-10 md:py-12 px-6 sm:px-10 lg:px-16 reveal reveal-fade-up">   {/* ✨ NEW: added reveal classes */}
+    <section className="relative w-full overflow-hidden bg-[#020B1D] border-t border-white/10 py-10 md:py-12 px-6 sm:px-10 lg:px-16 reveal reveal-fade-up">
       {/* Canvas background – particle network */}
       <div className="absolute inset-0 w-full h-full">
         <canvas ref={canvasRef} className="w-full h-full" />
@@ -164,28 +166,29 @@ const CTASection = React.memo(() => {
       {/* Content */}
       <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 max-w-7xl mx-auto">
         <div>
-          <h2 className="text-white font-bold text-2xl md:text-3xl leading-snug reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            Ready to Transform Your
-            <br className="hidden md:block" /> IT Infrastructure?
+          <h2 className="text-white font-bold text-2xl md:text-3xl leading-snug reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('cta.title')}
+            <br className="hidden md:block" />
+            {t('cta.sub')}
           </h2>
-          <p className="text-[#B8C4D9] text-sm md:text-base mt-2 reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
-            Let's build the future together.
+          <p className="text-[#B8C4D9] text-sm md:text-base mt-2 reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>
+            {t('cta.sub')}
           </p>
         </div>
 
         <Link
           to="/contact"
-          className="flex items-center gap-2 bg-[#0D4EA7] hover:bg-[#2E7BFF] text-white font-semibold text-sm md:text-base px-6 py-3 rounded-full transition-all duration-200 hover:scale-105 whitespace-nowrap shrink-0 reveal reveal-fade-up"   // ✨ NEW
-          style={{ transitionDelay: "0.3s" }}   // ✨ NEW
+          className="flex items-center gap-2 bg-[#0D4EA7] hover:bg-[#2E7BFF] text-white font-semibold text-sm md:text-base px-6 py-3 rounded-full transition-all duration-200 hover:scale-105 whitespace-nowrap shrink-0 reveal reveal-fade-up"
+          style={{ transitionDelay: "0.3s" }}
         >
-          Contact Us Today
+          {t('cta.btn')}
           <span className="flex items-center justify-center w-5 h-5 rounded-full border border-white/70">
             <ArrowUpRight size={12} />
           </span>
         </Link>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

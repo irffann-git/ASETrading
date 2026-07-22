@@ -6,34 +6,37 @@ import {
   Gauge,
   TrendingUp,
 } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
 
 const ServicesImpact = () => {
+  const { t } = useLanguage();   // <-- ADD
+
   const metrics = [
     {
       value: "99.999%",
-      label: "Network Uptime",
-      description: "Delivering near-perfect reliability for mission-critical operations.",
+      labelKey: "impact.metric1.label",
+      descKey: "impact.metric1.desc",
       icon: Activity,
       color: "#46B8FF",
     },
     {
       value: "40%",
-      label: "Reduced Complexity",
-      description: "Streamlined infrastructure management through intelligent design.",
+      labelKey: "impact.metric2.label",
+      descKey: "impact.metric2.desc",
       icon: BarChart3,
       color: "#2ECC71",
     },
     {
       value: "35%",
-      label: "Energy Efficiency",
-      description: "Optimized power usage and cooling for sustainable operations.",
+      labelKey: "impact.metric3.label",
+      descKey: "impact.metric3.desc",
       icon: Zap,
       color: "#F1C40F",
     },
     {
       value: "25%",
-      label: "Faster Management",
-      description: "Accelerated response times and simplified day-to-day operations.",
+      labelKey: "impact.metric4.label",
+      descKey: "impact.metric4.desc",
       icon: Gauge,
       color: "#E74C3C",
     },
@@ -65,7 +68,7 @@ const ServicesImpact = () => {
     };
   }, [hasAnimated]);
 
-  // ─── ✨ NEW: Scroll reveal effect for header elements ────────────
+  // ─── Scroll reveal effect for header elements ────────────────────
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -86,7 +89,6 @@ const ServicesImpact = () => {
       observer.disconnect();
     };
   }, []);
-  // ─── End of scroll reveal ──────────────────────────────────────
 
   return (
     <section
@@ -113,19 +115,18 @@ const ServicesImpact = () => {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">   {/* ✨ NEW */}
-            Our Impact
+          <span className="uppercase tracking-[0.25em] text-[#46B8FF] text-sm font-semibold reveal reveal-fade-up">
+            {t('impact.badge')}
           </span>
-          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>   {/* ✨ NEW */}
-            Delivering Measurable{" "}
+          <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight reveal reveal-fade-up" style={{ transitionDelay: "0.1s" }}>
+            {t('impact.heading.prefix')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#46B8FF] to-[#195CCF]">
-              Business Outcomes
+              {t('impact.heading.highlight')}
             </span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[#46B8FF] to-[#195CCF] mx-auto mt-5 rounded-full" />
-          <p className="mt-6 text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>   {/* ✨ NEW */}
-            Our solutions deliver quantifiable results that drive real business value,
-            from infrastructure reliability to operational efficiency.
+          <p className="mt-6 text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto reveal reveal-fade-up" style={{ transitionDelay: "0.2s" }}>
+            {t('impact.sub')}
           </p>
         </div>
 
@@ -166,7 +167,7 @@ const ServicesImpact = () => {
                       >
                         <Icon className="w-5 h-5" style={{ color: metric.color }} />
                       </div>
-                      <span className="text-slate-500 text-sm font-medium">Impact</span>
+                      <span className="text-slate-500 text-sm font-medium">{t('impact.cardLabel')}</span>
                     </div>
 
                     {/* Value */}
@@ -181,12 +182,12 @@ const ServicesImpact = () => {
 
                     {/* Label */}
                     <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#46B8FF] transition-colors duration-300">
-                      {metric.label}
+                      {t(metric.labelKey)}
                     </h3>
 
                     {/* Description */}
                     <p className="text-slate-400 text-sm leading-relaxed group-hover:text-slate-300 transition-colors duration-300">
-                      {metric.description}
+                      {t(metric.descKey)}
                     </p>
 
                     {/* Decorative progress bar */}
@@ -209,16 +210,16 @@ const ServicesImpact = () => {
 
         {/* Bottom callout */}
         <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-[#46B8FF]/30 transition-all duration-300 reveal reveal-fade-up" style={{ transitionDelay: "0.3s" }}>   {/* ✨ NEW */}
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:border-[#46B8FF]/30 transition-all duration-300 reveal reveal-fade-up" style={{ transitionDelay: "0.3s" }}>
             <TrendingUp className="w-4 h-4 text-[#46B8FF]" />
             <span className="text-slate-300 text-sm">
-              Proven results across <span className="text-white font-semibold">50+</span> enterprise projects
+              {t('impact.callout', { count: 50 })}
             </span>
           </div>
         </div>
       </div>
 
-      {/* ─── ✨ NEW: Scroll reveal styles (self-contained) ─── */}
+      {/* Scroll reveal styles (self‑contained) */}
       <style>{`
         .reveal {
           opacity: 0;

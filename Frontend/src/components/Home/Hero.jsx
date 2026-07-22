@@ -3,9 +3,12 @@ import { useEffect, useRef, useCallback } from "react";
 import * as THREE from "three";
 import { Link } from "react-router-dom";
 import { ArrowRight, Info, Award, Users, Briefcase, Clock } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";
 import "./Hero.css";
 
 const Hero = () => {
+  const { t } = useLanguage();
+
   const sectionRef = useRef(null);
   const viewportRef = useRef(null);
   const companyLabelRef = useRef(null);
@@ -14,6 +17,14 @@ const Hero = () => {
   const netCanvasRef = useRef(null);
   const netAnimationRef = useRef(null);
   const netResizeTimerRef = useRef(null);
+
+  // ─── Translated title split around the highlighted word ──────────
+  const titleText = t('hero.title');
+  const highlightText = t('hero.highlight');
+  const hasHighlight = titleText.includes(highlightText);
+  const [titleBefore, titleAfter] = hasHighlight
+    ? titleText.split(highlightText)
+    : [titleText, ''];
 
   const handleNetResize = useCallback(() => {
     if (netResizeTimerRef.current) return;
@@ -705,22 +716,21 @@ const Hero = () => {
       <div className="hero-content">
         {/* Left: text + buttons */}
         <div className="hero-text">
-          <p className="hero-badge">System Integration & IT Infrastructure</p>
+          <p className="hero-badge">{t('hero.badge')}</p>
 
           <h1 className="hero-title">
-            Building Intelligent{" "}
-            <span className="highlight">Infrastructure</span> for a
-            Connected Future
+            {titleBefore}
+            {hasHighlight && <span className="highlight">{highlightText}</span>}
+            {titleAfter}
           </h1>
 
           <p className="hero-description">
-            ASE delivers end-to-end IT solutions that empower businesses to
-            innovate, transform and grow in the digital era.
+            {t('hero.description')}
           </p>
 
           <div className="hero-buttons">
             <Link to="/solutions" className="btn-primary">
-              Explore Solutions
+              {t('hero.btn.solutions')}
               <ArrowRight size={18} />
             </Link>
 
@@ -728,7 +738,7 @@ const Hero = () => {
               <span className="icon-circle">
                 <Info size={12} />
               </span>
-              Our Expertise
+              {t('hero.btn.expertise')}
             </Link>
           </div>
         </div>
@@ -745,32 +755,32 @@ const Hero = () => {
           <div className="hero-stat-item">
             <Award className="hero-stat-icon" />
             <div>
-              <div className="hero-stat-value">20+</div>
-              <div className="hero-stat-label">Years of Excellence</div>
+              <div className="hero-stat-value">{t('hero.stat.years')}</div>
+              <div className="hero-stat-label">{t('hero.stat.yearsLabel')}</div>
             </div>
           </div>
 
           <div className="hero-stat-item">
             <Users className="hero-stat-icon" />
             <div>
-              <div className="hero-stat-value">500+</div>
-              <div className="hero-stat-label">Enterprise Clients</div>
+              <div className="hero-stat-value">{t('hero.stat.clients')}</div>
+              <div className="hero-stat-label">{t('hero.stat.clientsLabel')}</div>
             </div>
           </div>
 
           <div className="hero-stat-item">
             <Briefcase className="hero-stat-icon" />
             <div>
-              <div className="hero-stat-value">1000+</div>
-              <div className="hero-stat-label">Projects Delivered</div>
+              <div className="hero-stat-value">{t('hero.stat.projects')}</div>
+              <div className="hero-stat-label">{t('hero.stat.projectsLabel')}</div>
             </div>
           </div>
 
           <div className="hero-stat-item">
             <Clock className="hero-stat-icon" />
             <div>
-              <div className="hero-stat-value">24/7</div>
-              <div className="hero-stat-label">Support & Services</div>
+              <div className="hero-stat-value">{t('hero.stat.support')}</div>
+              <div className="hero-stat-label">{t('hero.stat.supportLabel')}</div>
             </div>
           </div>
         </div>
@@ -783,10 +793,10 @@ const Hero = () => {
         style={{ transform: "translate(-50%, calc(-100% - 27px))" }}
       >
         <span className="label-title">
-          Ahmed Ali Al-Saihati General Contracting Est.
+          {t('hero.companyLabel')}
         </span>
         <span className="label-sub">
-          Dammam, Kingdom of Saudi Arabia
+          {t('hero.companySub')}
         </span>
         <span className="label-line" />
       </div>
