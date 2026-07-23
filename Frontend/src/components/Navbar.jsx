@@ -45,7 +45,6 @@ const Navbar = () => {
     { name: t('nav.projects'), to: '/projects' },
     { name: t('nav.partners'), to: '/partners' },
     { name: t('nav.clients'), to: '/clients' },
-    { name: t('nav.contact'), to: '/contact' },
   ];
 
   return (
@@ -57,7 +56,7 @@ const Navbar = () => {
       }`}
     >
       <div className="relative z-50 max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20 md:h-24 lg:h-30">
+        <div className="flex items-center justify-between pb-3 h-16 sm:h-20 md:h-24 lg:h-30">
 
           {/* Logo – scales up gradually, full size preserved on large screens */}
           <div className="flex-shrink-0">
@@ -65,8 +64,8 @@ const Navbar = () => {
               <img
                 src="/ase_logo.png"
                 alt="ASE Logo"
-                className="h-10 sm:h-14 md:h-20 lg:h-40 w-auto object-contain"
-              />
+                className="h-15 sm:h-16 md:h-20 lg:h-40 w-auto object-contain"
+                              />
             </Link>
           </div>
 
@@ -107,29 +106,29 @@ const Navbar = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2.5 rounded-md hover:bg-white/10 active:bg-white/15 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00CFFF]"
+  className="inline-flex items-center justify-center p-1.5 rounded-md hover:bg-white/10 active:bg-white/15 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00CFFF]"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
               aria-label={mobileMenuOpen ? 'Close main menu' : 'Open main menu'}
             >
               <span className="sr-only">{mobileMenuOpen ? 'Close main menu' : 'Open main menu'}</span>
-              <div className="space-y-1.5">
-                <span
-                  className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                    mobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-                  }`}
-                />
-                <span
-                  className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                    mobileMenuOpen ? 'opacity-0' : ''
-                  }`}
-                />
-                <span
-                  className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
-                    mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-                  }`}
-                />
-              </div>
+              <div className="space-y-1">
+  <span
+    className={`block w-5 h-[2px] bg-white transition-all duration-300 ${
+      mobileMenuOpen ? "rotate-45 translate-y-[6px]" : ""
+    }`}
+  />
+  <span
+    className={`block w-5 h-[2px] bg-white transition-all duration-300 ${
+      mobileMenuOpen ? "opacity-0" : ""
+    }`}
+  />
+  <span
+    className={`block w-5 h-[2px] bg-white transition-all duration-300 ${
+      mobileMenuOpen ? "-rotate-45 -translate-y-[6px]" : ""
+    }`}
+  />
+</div>
             </button>
           </div>
         </div>

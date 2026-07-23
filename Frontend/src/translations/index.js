@@ -10,8 +10,7 @@ export const translations = {
     'nav.projects': 'Projects',
     'nav.partners': 'Partners',
     'nav.clients': 'Clients',
-    'nav.contact': 'Contact',
-    'nav.contactBtn': 'Get in Touch',
+    'nav.contactBtn': 'Contact',
     'nav.language': 'العربية',
 
     // ─── Hero ──────────────────────────────────────
@@ -401,14 +400,12 @@ export const translations = {
     'delivery.step6.desc':
       'Our commitment continues after deployment with preventive maintenance, technical assistance, system optimization, and rapid response support whenever required.',
 
-    // ─── Services Hero ──────────────────────────────
-    'servicesHero.badge': 'Our Services',
-    'servicesHero.heading': 'Comprehensive IT Solutions Tailored for Your Business',
-    'servicesHero.highlight': 'Tailored for Your Business',
-    'servicesHero.sub':
-      'From network infrastructure to cyber security and cloud migration, ASE provides end-to-end services designed to optimize performance, enhance security, and drive digital growth.',
-    'servicesHero.btn1': 'Explore Our Work',
-    'servicesHero.btn2': 'Contact Sales',
+    "servicesHero.badge": "Professional IT Services",
+"servicesHero.heading": "Reliable IT Services for Enterprise Growth",
+"servicesHero.highlight": "Enterprise Growth",
+"servicesHero.sub": "From IT infrastructure and network security to data centers, cloud solutions, surveillance systems, and ongoing technical support, ASE delivers reliable services that empower businesses across Saudi Arabia.",
+"servicesHero.btn1": "Explore Services",
+"servicesHero.btn2": "Get in Touch",
 
     // ─── Services Impact ────────────────────────────
     'impact.badge': 'Our Impact',
@@ -799,8 +796,7 @@ export const translations = {
     'nav.projects': 'المشاريع',
     'nav.partners': 'الشركاء',
     'nav.clients': 'العملاء',
-    'nav.contact': 'اتصل بنا',
-    'nav.contactBtn': 'تواصل معنا',
+    'nav.contactBtn': 'اتصل بنا',
     'nav.language': 'English',
 
     // ─── Hero ──────────────────────────────────────
@@ -1155,13 +1151,12 @@ export const translations = {
       'يستمر التزامنا بعد النشر من خلال الصيانة الوقائية، والمساعدة التقنية، وتحسين الأنظمة، ودعم الاستجابة السريعة كلما دعت الحاجة.',
 
     // ─── Services Hero ──────────────────────────────
-    'servicesHero.badge': 'خدماتنا',
-    'servicesHero.heading': 'حلول تقنية شاملة مصممة خصيصاً لأعمالك',
-    'servicesHero.highlight': 'مصممة خصيصاً لأعمالك',
-    'servicesHero.sub':
-      'من البنية التحتية للشبكات إلى الأمن السيبراني والهجرة إلى السحابة، تقدم ASE خدمات شاملة مصممة لتحسين الأداء وتعزيز الأمن ودفع النمو الرقمي.',
-    'servicesHero.btn1': 'استكشف أعمالنا',
-    'servicesHero.btn2': 'اتصل بالمبيعات',
+    "servicesHero.badge": "خدمات تقنية احترافية",
+"servicesHero.heading": "خدمات تقنية موثوقة لنمو المؤسسات",
+"servicesHero.highlight": "نمو المؤسسات",
+"servicesHero.sub": "من البنية التحتية لتقنية المعلومات وأمن الشبكات إلى مراكز البيانات والحلول السحابية وأنظمة المراقبة والدعم الفني المستمر، تقدم ASE خدمات موثوقة تمكن الشركات في جميع أنحاء المملكة العربية السعودية.",
+"servicesHero.btn1": "استكشف الخدمات",
+"servicesHero.btn2": "تواصل معنا",
 
     // ─── Impact ──────────────────────────────────────
     'impact.badge': 'تأثيرنا',

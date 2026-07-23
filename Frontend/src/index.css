@@ -2,7 +2,11 @@
 
 
 
+  
 
+html[lang="ar"] body {
+  font-family: "Vazirmatn", sans-serif;
+}
 /* globals.css */
 
 :root {
