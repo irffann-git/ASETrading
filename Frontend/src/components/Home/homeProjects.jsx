@@ -34,33 +34,33 @@ const HomeProjects = () => {
       descKey: "projects.project1.desc",
       image:
         "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80",
-      link: "/projects/campus-network",
+      link: "/projects",
     },
     {
       titleKey: "projects.project2.title",
       descKey: "projects.project2.desc",
       image:
         "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
-      link: "/projects/industrial-data-center",
+      link: "/projects",
     },
     {
       titleKey: "projects.project3.title",
       descKey: "projects.project3.desc",
       image:
         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
-      link: "/projects/cloud-migration",
+      link: "/projects",
     },
     {
       titleKey: "projects.project4.title",
       descKey: "projects.project4.desc",
       image:
         "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80",
-      link: "/projects/retail-pos-upgrade",
+      link: "/projects",
     },
   ];
 
   return (
-    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#F7F7F8]">
+    <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-[#F7F7F8] ">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">

@@ -219,18 +219,6 @@ const FeaturedProjects = () => {
                       </ul>
                     </div>
                   </div>
-
-                  {/* Card Button Action */}
-                  <div className="mt-8 pt-4 border-t border-white/5">
-                    <Link
-                      to={`/projects/${project.id}`}
-                      className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-[#091B3A] border border-white/10 text-white font-semibold text-sm transition-all duration-300 hover:bg-[#195CCF] hover:border-[#195CCF] group/btn"
-                    >
-                      {t('projectsPage.card.btn')}
-                      <ArrowRight size={16} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
-                    </Link>
-                  </div>
-
                 </div>
               </div>
             ))}

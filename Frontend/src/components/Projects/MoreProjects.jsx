@@ -112,7 +112,7 @@ const MoreProjects = () => {
         {/* Center Bottom Action Button */}
         <div className="mt-10 flex justify-center">
           <Link
-            to="/all-projects"
+            to="/projects"
             className="inline-flex items-center justify-center gap-3 px-8 py-3 rounded-lg bg-[#051129] border border-white/10 text-white font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-[#195CCF] hover:border-[#195CCF] group reveal reveal-fade-up"
             style={{ transitionDelay: "0.4s" }}
           >

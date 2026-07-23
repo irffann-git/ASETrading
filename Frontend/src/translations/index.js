@@ -76,6 +76,29 @@ export const translations = {
     'services.microsoftCore': 'Microsoft Core Infrastructure',
     'services.civil': 'Civil Works',
 
+    "about": {
+  "vision": {
+    "title": "Vision",
+    "text": "To be the undisputed leader and most trusted System Integrator and IT Infrastructure provider in the Kingdom of Saudi Arabia and the wider MENA region, recognized for innovation, service excellence, and sustainable digital transformation."
+  },
+  "mission": {
+    "title": "Mission",
+    "text": "To deliver professional, reliable, and innovative IT and electromechanical solutions by combining certified expertise, international quality standards, and long-term customer partnerships that drive business success."
+  },
+  "values": {
+    "title": "Core Values",
+    "list": [
+      "Integrity",
+      "Excellence",
+      "Innovation",
+      "Commitment",
+      "Customer Focus",
+      "Accountability",
+      "Continuous Improvement"
+    ]
+  }
+},
+
     // ─── Projects (HomeProjects) ────────────────────
     'projects.badge': 'Featured Projects',
     'projects.heading': 'Delivering Impactful IT Solutions',
@@ -134,24 +157,22 @@ export const translations = {
     'partners.showMore': 'Show More',
 
     // ─── Trusted Technology Ecosystem ────────────────────
-    'ecosystem.heading': 'Trusted Technology Ecosystem',
-    'ecosystem.p1':
-      'ASE works closely with globally recognized technology leaders to deliver networking, cybersecurity, cloud, datacenter and enterprise infrastructure solutions.',
-    'ecosystem.p2':
-      'Every partnership strengthens our ability to provide certified, reliable and scalable solutions to organizations throughout Saudi Arabia.',
-    'ecosystem.stat1.value': '20+',
-    'ecosystem.stat1.label': 'Years',
-    'ecosystem.stat1.sublabel': 'of Industry Excellence',
-    'ecosystem.stat2.value': '10+',
-    'ecosystem.stat2.label': 'Global',
-    'ecosystem.stat2.sublabel': 'Technology Partners',
-    'ecosystem.stat3.value': '100+',
-    'ecosystem.stat3.label': 'Enterprise',
-    'ecosystem.stat3.sublabel': 'Projects Delivered',
-    'ecosystem.stat4.value': '24/7',
-    'ecosystem.stat4.label': 'Support',
-    'ecosystem.stat4.sublabel': '& Managed Services',
-    'ecosystem.btn': 'View All Partners',
+   "ecosystem.heading": "Trusted Technology Ecosystem",
+  "ecosystem.p1": "ASE works closely with globally recognized technology leaders to deliver networking, cybersecurity, cloud, datacenter and enterprise infrastructure solutions.",
+  "ecosystem.p2": "Every partnership strengthens our ability to provide certified, reliable and scalable solutions to organizations throughout Saudi Arabia.",
+  "ecosystem.stat1.value": "20+",
+  "ecosystem.stat1.label": "Years",
+  "ecosystem.stat1.sublabel": "of Industry Excellence",
+  "ecosystem.stat2.value": "10+",
+  "ecosystem.stat2.label": "Global",
+  "ecosystem.stat2.sublabel": "Technology Partners",
+  "ecosystem.stat3.value": "Certified",
+  "ecosystem.stat3.label": "Enterprise",
+  "ecosystem.stat3.sublabel": "Solutions",
+  "ecosystem.stat4.value": "Long‑Term",
+  "ecosystem.stat4.label": "Customer",
+  "ecosystem.stat4.sublabel": "Support",
+  "ecosystem.btn": "View All Partners",
 
     // ─── CTA Section ────────────────────────────────
     'cta.title': 'Ready to Transform Your IT Infrastructure?',
@@ -499,6 +520,15 @@ export const translations = {
       'Civil Works',
       'Trenching & Backfilling',
     ],
+        'solutionsGrid.s7.title': 'IP Communication & Physical Security',
+    'solutionsGrid.s7.desc':
+      'Unified communications, high-definition surveillance, biometric access control, and immersive audiovisual systems—fully integrated to keep your enterprise connected, secure, and collaborative.',
+    'solutionsGrid.s7.features': [
+      'Enterprise IP Telephony & VoIP',
+      'CCTV / Surveillance Systems',
+      'Biometric Access Control & Attendance',
+      'Audio Visual & Video Conferencing',
+    ],
     'solutionsGrid.learnMore': 'Learn More',
 
     // ─── Solutions Hero ─────────────────────────────
@@ -536,20 +566,24 @@ export const translations = {
     'support.careers': 'Careers',
     'support.privacy': 'Privacy Policy',
 
-    // ─── Footer ──────────────────────────────────────
-    'footer.brandDesc':
-      'Delivering innovative IT solutions that empower businesses to grow, transform and succeed.',
-    'footer.quickLinks': 'Quick Links',
-    'footer.solutions': 'Solutions',
-    'footer.support': 'Support',
-    'footer.contact': 'Contact Us',
-    'footer.address': 'Dammam, Kingdom of Saudi Arabia',
-    'footer.phone': '+966 13 xxxx xxx',
-    'footer.email': 'info@ase.com.sa',
-    'footer.presence': 'Our Presence',
-    'footer.copyright': '© 2004 ASE – Ahmed Ali Al-Saihati Gen. Cont. Est. All Rights Reserved.',
-    'footer.privacy': 'Privacy Policy',
-    'footer.terms': 'Terms of Service',
+ // ─── Footer ──────────────────────────────────────
+'footer.brandDesc':
+  'Delivering innovative IT solutions that empower businesses to grow, transform and succeed.',
+'footer.quickLinks': 'Quick Links',
+'footer.solutions': 'Solutions',
+'footer.support': 'Support',
+'footer.contact': 'Contact Us',
+'footer.address': 'Dammam, Kingdom of Saudi Arabia',
+'footer.phone': '+966 13 855 9421',
+'footer.fax': '+966 13 851 1106',
+'footer.mobile': '+966 59 494 3333',
+'footer.supportPhone': '+966 59 233 0800',
+'footer.email': 'info@asetrading.com',
+'footer.website': 'www.asetrading.com',
+'footer.presence': 'Our Presence',
+'footer.copyright': '© 2004 ASE – Ahmed Ali Al-Saihati Gen. Cont. Est. All Rights Reserved.',
+'footer.privacy': 'Privacy Policy',
+'footer.terms': 'Terms of Service',
 
 
     // ─── Partners Hero ───────────────────────────────
@@ -801,6 +835,7 @@ export const translations = {
     'about.card2.desc': 'نظام بيئي قوي من شركاء التكنولوجيا الرائدين',
     'about.card3.title': 'التركيز على العميل',
     'about.card3.desc': 'ملتزمون بالجودة والموثوقية والدعم طويل الأمد',
+    
 
     // ─── Solutions (HomeSolutions) ──────────────────
     'solutions.badge': 'حلولنا',
@@ -881,24 +916,22 @@ export const translations = {
     'partners.showMore': 'عرض المزيد',
 
     // ─── Trusted Technology Ecosystem ────────────────────
-    'ecosystem.heading': 'النظام البيئي التقني الموثوق',
-    'ecosystem.p1':
-      'تعمل ASE عن كثب مع قادة التكنولوجيا المعترف بهم عالمياً لتقديم حلول الشبكات والأمن السيبراني والسحابة ومراكز البيانات والبنية التحتية للمؤسسات.',
-    'ecosystem.p2':
-      'كل شراكة تعزز قدرتنا على تقديم حلول معتمدة وموثوقة وقابلة للتطوير للمؤسسات في جميع أنحاء المملكة العربية السعودية.',
-    'ecosystem.stat1.value': '٢٠+',
-    'ecosystem.stat1.label': 'سنوات',
-    'ecosystem.stat1.sublabel': 'من التميز الصناعي',
-    'ecosystem.stat2.value': '١٠+',
-    'ecosystem.stat2.label': 'شراكات',
-    'ecosystem.stat2.sublabel': 'تقنية عالمية',
-    'ecosystem.stat3.value': '١٠٠+',
-    'ecosystem.stat3.label': 'مشروع',
-    'ecosystem.stat3.sublabel': 'مؤسسي تم تسليمه',
-    'ecosystem.stat4.value': '٢٤/٧',
-    'ecosystem.stat4.label': 'دعم',
-    'ecosystem.stat4.sublabel': 'وخدمات مدارة',
-    'ecosystem.btn': 'عرض جميع الشركاء',
+   "ecosystem.heading": "نظام بيئي تكنولوجي موثوق",
+  "ecosystem.p1": "تعمل ASE بشكل وثيق مع قادة التكنولوجيا العالميين لتقديم حلول الشبكات والأمن السيبراني والخدمات السحابية ومراكز البيانات والبنية التحتية للمؤسسات.",
+  "ecosystem.p2": "كل شراكة تعزز قدرتنا على توفير حلول معتمدة وموثوقة وقابلة للتوسع للمؤسسات في جميع أنحاء المملكة العربية السعودية.",
+  "ecosystem.stat1.value": "20+",
+  "ecosystem.stat1.label": "عاماً",
+  "ecosystem.stat1.sublabel": "من التميز الصناعي",
+  "ecosystem.stat2.value": "10+",
+  "ecosystem.stat2.label": "شريكاً",
+  "ecosystem.stat2.sublabel": "تكنولوجياً عالمياً",
+  "ecosystem.stat3.value": "معتمدة",
+  "ecosystem.stat3.label": "حلول",
+  "ecosystem.stat3.sublabel": "مؤسسية",
+  "ecosystem.stat4.value": "طويل الأمد",
+  "ecosystem.stat4.label": "دعم",
+  "ecosystem.stat4.sublabel": "العملاء",
+  "ecosystem.btn": "عرض جميع الشركاء",
 
     // ─── CTA Section ────────────────────────────────
     'cta.title': 'هل أنت مستعد لتحويل البنية التحتية لتقنية المعلومات لديك؟',
@@ -1240,6 +1273,15 @@ export const translations = {
       'الأعمال المدنية',
       'الحفر والردم',
     ],
+        'solutionsGrid.s7.title': 'الاتصالات عبر IP والأمن المادي',
+    'solutionsGrid.s7.desc':
+      'اتصالات موحدة، وأنظمة مراقبة عالية الوضوح، والتحكم في الدخول البيومتري، وأنظمة سمعية وبصرية متكاملة – للحفاظ على اتصال مؤسستك وأمنها وتعاونها.',
+    'solutionsGrid.s7.features': [
+      'الهاتف عبر IP والاتصال الصوتي الموحد للمؤسسات',
+      'أنظمة كاميرات المراقبة (CCTV)',
+      'التحكم في الدخول البيومتري وإدارة الحضور',
+      'أنظمة الصوت والمرئيات ومؤتمرات الفيديو',
+    ],
     'solutionsGrid.learnMore': 'اعرف المزيد',
 
     // ─── Solutions Hero ─────────────────────────────
@@ -1273,20 +1315,24 @@ export const translations = {
     'support.careers': 'الوظائف',
     'support.privacy': 'سياسة الخصوصية',
 
-    // ─── Footer ──────────────────────────────────────
-    'footer.brandDesc':
-      'تقديم حلول تقنية مبتكرة تمكن الشركات من النمو والتحول والنجاح.',
-    'footer.quickLinks': 'روابط سريعة',
-    'footer.solutions': 'الحلول',
-    'footer.support': 'الدعم',
-    'footer.contact': 'اتصل بنا',
-    'footer.address': 'الدمام، المملكة العربية السعودية',
-    'footer.phone': '+٩٦٦ ١٣ xxxx xxx',
-    'footer.email': 'info@ase.com.sa',
-    'footer.presence': 'تواجدنا',
-    'footer.copyright': '© ٢٠٠٤ ASE – مؤسسة أحمد علي السيهاتي للمقاولات العامة. جميع الحقوق محفوظة.',
-    'footer.privacy': 'سياسة الخصوصية',
-    'footer.terms': 'شروط الخدمة',
+  // ─── Footer ──────────────────────────────────────
+'footer.brandDesc':
+  'تقديم حلول تقنية مبتكرة تمكن الشركات من النمو والتحول والنجاح.',
+'footer.quickLinks': 'روابط سريعة',
+'footer.solutions': 'الحلول',
+'footer.support': 'الدعم',
+'footer.contact': 'اتصل بنا',
+'footer.address': 'الدمام، المملكة العربية السعودية',
+'footer.phone': '+966 13 855 9421',
+'footer.fax': '+966 13 851 1106',
+'footer.mobile': '+966 59 494 3333',
+'footer.supportPhone': '+966 59 233 0800',
+'footer.email': 'info@asetrading.com',
+'footer.website': 'www.asetrading.com',
+'footer.presence': 'تواجدنا',
+'footer.copyright': '© ٢٠٠٤ ASE – مؤسسة أحمد علي السيهاتي للمقاولات العامة. جميع الحقوق محفوظة.',
+'footer.privacy': 'سياسة الخصوصية',
+'footer.terms': 'شروط الخدمة',
 
 
 

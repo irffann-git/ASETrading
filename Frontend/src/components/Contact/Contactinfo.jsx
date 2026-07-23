@@ -55,7 +55,7 @@ const ContactInfoBar = () => {
   ];
 
   return (
-    <section className="bg-white text-[#1B2430] py-10 md:py-12 px-5 sm:px-8 md:px-12 lg:px-20">
+    <section className="bg-white text-[#1B2430] py-10 md:py-12 px-5 sm:px-8 md:px-12 lg:px-20 rounded-t-3xl">
       <div className="max-w-screen-2xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4">
           {CONTACT_ITEMS.map(({ id, icon: Icon, titleKey, lines }) => (

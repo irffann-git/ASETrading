@@ -28,7 +28,7 @@ const ServicesVisionMission = () => {
   }, []);
 
   return (
-    <section className="relative bg-white py-16 md:py-24 overflow-hidden">
+    <section className="relative bg-white py-16 md:py-24 overflow-hidden rounded-t-3xl">
       {/* Top gradient accent */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#195CCF] via-[#46B8FF] to-[#195CCF] opacity-20" />
 

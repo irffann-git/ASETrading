@@ -48,7 +48,7 @@ const ServicesIndustries = () => {
   ];
 
   return (
-    <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-[#F8FAFF] via-[#EEF4FF] to-[#F0F7FF]">
+    <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-[#F8FAFF] via-[#EEF4FF] to-[#F0F7FF] rounded-t-3xl">
       {/* Subtle pattern overlay */}
       <div
         className="absolute inset-0 opacity-5 pointer-events-none"

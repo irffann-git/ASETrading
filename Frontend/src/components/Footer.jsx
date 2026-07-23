@@ -1,14 +1,14 @@
 // Footer.jsx – Clean, responsive, 6-column layout with Map
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Printer  } from "lucide-react";   // <-- ADDED Fax icon
 import {
   FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
-import { useLanguage } from "../context/LanguageContext";   // <-- ADD
+import { useLanguage } from "../context/LanguageContext";
 
 // ─── Link data with translation keys ────────────────────
 const quickLinks = [
@@ -21,21 +21,12 @@ const quickLinks = [
 ];
 
 const solutionsLinks = [
-  { labelKey: "solutions.cyber", to: "/solutions/cyber-security" },
-  { labelKey: "solutions.network", to: "/solutions/network-solutions" },
-  { labelKey: "solutions.datacenter", to: "/solutions/data-center" },
-  { labelKey: "solutions.cloud", to: "/solutions/cloud-solutions" },
-  { labelKey: "solutions.microsoft", to: "/solutions/microsoft-solutions" },
-  { labelKey: "solutionsGrid.s5.title", to: "/solutions/structured-cabling" }, // structured cabling
-];
-
-const supportLinks = [
-  { labelKey: "support.247", to: "/support" },
-  { labelKey: "support.maintenance", to: "/support/maintenance" },
-  { labelKey: "support.resources", to: "/resources" },
-  { labelKey: "support.caseStudies", to: "/case-studies" },
-  { labelKey: "support.careers", to: "/careers" },
-  { labelKey: "support.privacy", to: "/privacy-policy" },
+  { labelKey: "solutions.cyber", to: "/solutions" },
+  { labelKey: "solutions.network", to: "/solutions" },
+  { labelKey: "solutions.datacenter", to: "/solutions" },
+  { labelKey: "solutions.cloud", to: "/solutions" },
+  { labelKey: "solutions.microsoft", to: "/solutions" },
+  { labelKey: "solutionsGrid.s5.title", to: "/solutions" },
 ];
 
 const socialLinks = [
@@ -45,7 +36,7 @@ const socialLinks = [
   { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
 ];
 
-// ─── Reusable column component (now uses t) ──────────────
+// ─── Reusable column component ──────────────────────────────
 const FooterColumn = ({ titleKey, links, t }) => (
   <div className="text-center sm:text-left">
     <h4 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
@@ -69,7 +60,7 @@ const FooterColumn = ({ titleKey, links, t }) => (
 
 // ─── Main Footer ─────────────────────────────────────────
 const Footer = () => {
-  const { t } = useLanguage();   // <-- ADD
+  const { t } = useLanguage();
 
   // ─── Scroll reveal effect ──────────────────────────────────────────
   useEffect(() => {
@@ -131,7 +122,6 @@ const Footer = () => {
           {/* Link columns */}
           <FooterColumn titleKey="footer.quickLinks" links={quickLinks} t={t} />
           <FooterColumn titleKey="footer.solutions" links={solutionsLinks} t={t} />
-          <FooterColumn titleKey="footer.support" links={supportLinks} t={t} />
 
           {/* Contact column */}
           <div className="text-center sm:text-left">
@@ -148,16 +138,40 @@ const Footer = () => {
               <li className="flex items-center justify-center sm:justify-start gap-3">
                 <Phone size={17} className="text-[#00CFFF] shrink-0" />
                 <a
-                  href="tel:+966130000000"
+                  href="tel:+966138559421"
                   className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors"
                 >
                   {t('footer.phone')}
                 </a>
               </li>
               <li className="flex items-center justify-center sm:justify-start gap-3">
+                <Printer  x size={17} className="text-[#00CFFF] shrink-0" />
+                <span className="text-[#B8C4D9] text-sm">
+                  {t('footer.fax')}
+                </span>
+              </li>
+              <li className="flex items-center justify-center sm:justify-start gap-3">
+                <Phone size={17} className="text-[#00CFFF] shrink-0" />
+                <a
+                  href="tel:+966594943333"
+                  className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors"
+                >
+                  {t('footer.mobile')}
+                </a>
+              </li>
+              <li className="flex items-center justify-center sm:justify-start gap-3">
+                <Phone size={17} className="text-[#00CFFF] shrink-0" />
+                <a
+                  href="tel:+966592330800"
+                  className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors"
+                >
+                  {t('footer.supportPhone')}
+                </a>
+              </li>
+              <li className="flex items-center justify-center sm:justify-start gap-3">
                 <Mail size={17} className="text-[#00CFFF] shrink-0" />
                 <a
-                  href="mailto:info@ase.com.sa"
+                  href="mailto:info@asetrading.com"
                   className="text-[#B8C4D9] text-sm hover:text-[#00CFFF] transition-colors"
                 >
                   {t('footer.email')}

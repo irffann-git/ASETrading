@@ -77,6 +77,14 @@ const SolutionsGrid = () => {
       link: "/solutions/integrated-infrastructure",
       bgImage: "/integrated.png",
     },
+    {
+  id: "07",
+  titleKey: "solutionsGrid.s7.title",
+  descKey: "solutionsGrid.s7.desc",
+  featuresKey: "solutionsGrid.s7.features",
+  link: "/solutions/ip-communication-physical-security",
+  bgImage: "/ipcctv.png", // Replace with your actual image path
+},
   ];
 
   return (
@@ -149,18 +157,6 @@ const SolutionsGrid = () => {
                     </li>
                   ))}
                 </ul>
-
-                {/* Learn More Link */}
-                <Link
-                  to={solution.link}
-                  className="inline-flex items-center gap-2 text-[#46B8FF] font-semibold hover:text-white transition-colors duration-300 group/link"
-                >
-                  {t('solutionsGrid.learnMore')}
-                  <ArrowRight
-                    size={16}
-                    className="group-hover/link:translate-x-1 transition-transform duration-300"
-                  />
-                </Link>
               </div>
             </div>
           ))}

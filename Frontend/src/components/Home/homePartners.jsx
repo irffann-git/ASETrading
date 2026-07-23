@@ -43,7 +43,7 @@ const HomePartners = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-[#F6F8FC]">
+    <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-[#F6F8FC] rounded-t-3xl">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">

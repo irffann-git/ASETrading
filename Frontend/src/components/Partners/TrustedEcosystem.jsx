@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { ShieldCheck, Handshake, Briefcase, Headset } from "lucide-react";
-import { useLanguage } from "../../context/LanguageContext";   // <-- ADD
+import { useLanguage } from "../../context/LanguageContext";
 
 const TrustedEcosystem = () => {
-  const { t } = useLanguage();   // <-- ADD
+  const { t } = useLanguage();
 
-  // ─── Scroll reveal: same ref-callback pattern as FeaturedProjects ───
   const observerRef = useRef(null);
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const TrustedEcosystem = () => {
     <section className="bg-[#020B1D] text-white py-16 md:py-24 px-5 sm:px-8 md:px-12 lg:px-20">
       <div className="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-10 lg:gap-16 items-center">
 
-        {/* Left: Heading & Copy */}
+        {/* Left: Heading, Copy & Button */}
         <div ref={revealRef} className="reveal reveal-fade-up">
           <h2 className="text-2xl sm:text-3xl font-bold text-white">
             {t('ecosystem.heading')}
@@ -80,6 +79,25 @@ const TrustedEcosystem = () => {
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed mt-4">
             {t('ecosystem.p2')}
           </p>
+
+          <div className="mt-8">
+            <a
+              href="/partners"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-[#195CCF]/60 text-[#46B8FF] font-medium rounded-lg hover:bg-[#195CCF] hover:text-white hover:border-[#195CCF] transition-all duration-300"
+            >
+              {t('ecosystem.btn')}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* Right: Stat Cards */}
@@ -113,7 +131,6 @@ const TrustedEcosystem = () => {
 
       </div>
 
-      {/* ─── Scroll reveal styles (self-contained) ─── */}
       <style>{`
         .reveal {
           opacity: 0;
