@@ -10,6 +10,7 @@ export const translations = {
     'nav.projects': 'Projects',
     'nav.partners': 'Partners',
     'nav.clients': 'Clients',
+    'nav.contact':'Contact',
     'nav.contactBtn': 'Contact',
     'nav.language': 'العربية',
 
@@ -29,7 +30,7 @@ export const translations = {
     'hero.stat.projectsLabel': 'IT Infrastructure Solutions',
     'hero.stat.support': '24/7',
     'hero.stat.supportLabel': 'Support & Services',
-    'hero.companyLabel': 'Ahmed Ali Al-Saihati General Contracting Est.',
+    'hero.companyLabel': 'Ahmed Bin Ali Al-Saihati  Est.',
     'hero.companySub': 'Dammam, Kingdom of Saudi Arabia',
 
     // ─── About (HomeAbout) ──────────────────────────
@@ -578,7 +579,7 @@ export const translations = {
 'footer.email': 'info@asetrading.com',
 'footer.website': 'www.asetrading.com',
 'footer.presence': 'Our Presence',
-'footer.copyright': '© 2004 ASE – Ahmed Ali Al-Saihati Gen. Cont. Est. All Rights Reserved.',
+'footer.copyright': '© 2004 ASE – Ahmed Bin Ali Al-Saihati Est. All Rights Reserved.',
 'footer.privacy': 'Privacy Policy',
 'footer.terms': 'Terms of Service',
 
@@ -755,7 +756,7 @@ export const translations = {
 'contactForm.mapTitle': 'ASE Office Location',
 
 'contactForm.officeTitle': 'Head Office',
-'contactForm.officeAddress.line1': 'Ahmed Ali Al-Saihati Gen. Cont. Est. (ASE)',
+'contactForm.officeAddress.line1': 'Ahmed Bin Ali Al-Saihati Est. (ASE)',
 'contactForm.officeAddress.line2': 'P.O. Box 265',
 'contactForm.officeAddress.line3': 'Dammam 31451',
 'contactForm.officeAddress.line4': 'Kingdom of Saudi Arabia',
@@ -796,6 +797,7 @@ export const translations = {
     'nav.projects': 'المشاريع',
     'nav.partners': 'الشركاء',
     'nav.clients': 'العملاء',
+    'nav.contact': 'اتصل بنا',
     'nav.contactBtn': 'اتصل بنا',
     'nav.language': 'English',
 
@@ -815,7 +817,7 @@ export const translations = {
     'hero.stat.projectsLabel': 'حلول البنية التحتية لتقنية المعلومات',
     'hero.stat.support': '٢٤/٧',
     'hero.stat.supportLabel': 'الدعم والخدمات',
-    'hero.companyLabel': 'مؤسسة أحمد علي السيهاتي للمقاولات العامة',
+    'hero.companyLabel': 'مؤسسة أحمد بن علي السيهاتي للمقاولات العامة',
     'hero.companySub': 'الدمام، المملكة العربية السعودية',
 
     // ─── About (HomeAbout) ──────────────────────────
@@ -1325,7 +1327,7 @@ export const translations = {
 'footer.email': 'info@asetrading.com',
 'footer.website': 'www.asetrading.com',
 'footer.presence': 'تواجدنا',
-'footer.copyright': '© ٢٠٠٤ ASE – مؤسسة أحمد علي السيهاتي للمقاولات العامة. جميع الحقوق محفوظة.',
+'footer.copyright':'© ٢٠٠٤ ASE – مؤسسة أحمد بن علي السيهاتي للمقاولات العامة. جميع الحقوق محفوظة.',
 'footer.privacy': 'سياسة الخصوصية',
 'footer.terms': 'شروط الخدمة',
 
@@ -1491,7 +1493,7 @@ export const translations = {
 'contactForm.mapTitle': 'موقع مكتب ASE',
 
 'contactForm.officeTitle': 'المكتب الرئيسي',
-'contactForm.officeAddress.line1': 'مؤسسة أحمد علي السيهاتي للمقاولات العامة (ASE)',
+'contactForm.officeAddress.line1':'مؤسسة أحمد بن علي السيهاتي للمقاولات العامة (ASE)',
 'contactForm.officeAddress.line2': 'ص.ب ٢٦٥',
 'contactForm.officeAddress.line3': 'الدمام ٣١٤٥١',
 'contactForm.officeAddress.line4': 'المملكة العربية السعودية',

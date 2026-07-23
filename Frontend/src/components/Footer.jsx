@@ -96,7 +96,7 @@ const Footer = () => {
             <Link to="/" className="inline-block">
               <img
                 src="/ase_logo.png"
-                alt="ASE – Ahmed Ali Al-Saihati"
+                alt="ASE – Ahmed Bin Ali Al-Saihati"
                 className="h-40 w-auto object-contain"
               />
             </Link>
